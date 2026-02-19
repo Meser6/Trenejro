@@ -24,7 +24,7 @@ CO ASYSTENT MUSI ZROBIĆ PRZED UŁOŻENIEM PLANU:
 
 CO POWSTAJE (PLIKI WYJŚCIOWE):
 - `plans/current_plan.json` — źródło prawdy
-- `plans/current_plan.html` — podgląd (render)
+- `index.html` — podgląd (render)
 - `plans/current_plan.csv` — CSV planu
 
 RENDER:

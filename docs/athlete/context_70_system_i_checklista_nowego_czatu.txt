@@ -8,9 +8,9 @@ trener/
 ├── data/                          - Dane treningowe
 │   ├── training_log.csv          - **GŁÓWNY DZIENNIK TRENINGÓW** (tutaj dopisujesz treningi)
 │   └── reporting_template_schema_detailed.csv - schemat kolumn (referencja)
+├── index.html                     - aktualny plan (podgląd)
 ├── plans/                         - Plany treningowe
 │   ├── current_plan.json         - aktualny plan na bieżący tydzień (źródło)
-│   ├── current_plan.html         - aktualny plan na bieżący tydzień (podgląd)
 │   └── archive/                   - archiwum planów (YYYY-MM-DD_plan.(json|html|csv))
 ├── scripts/                       - Skrypty pomocnicze
 │   ├── get_date.js               - odczyt aktualnej daty i zakresów tygodnia
@@ -43,7 +43,7 @@ trener/
 3. **Przeczytaj** `docs/ATHLETE_DETAILED_PROFILE.txt` (indeks) + moduły w `docs/athlete/`
 4. **Przeczytaj** `data/training_log.csv` - sprawdź ostatnie treningi
 5. **Sprawdź aktualny plan** (jeśli istnieje):
-   - podgląd: `plans/current_plan.html`
+   - podgląd: `index.html`
    - źródło: `plans/current_plan.json`
 6. **Wygeneruj plan na następny tydzień** na podstawie:
    - Ostatnich treningów z data/training_log.csv
@@ -70,7 +70,7 @@ trener/
 
 - `scripts/get_date.js` - zwraca aktualną datę, datę początku/końca tygodnia w JSON
 - `scripts/read_context.js` - odczytuje datę i pokazuje ostatnie treningi
-- `scripts/render_plan.js` - renderuje `plans/current_plan.json` → `plans/current_plan.html`
+- `scripts/render_plan.js` - renderuje `plans/current_plan.json` → `index.html`
 
 ---
 

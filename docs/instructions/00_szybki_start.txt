@@ -14,7 +14,7 @@ TEN SYSTEM MA 2 GŁÓWNE OPERACJE:
    - Szczegóły: `docs/instructions/20_generowanie_planu.txt`
 
 GDZIE SPRAWDZIĆ WYNIK:
-- Podgląd: `plans/current_plan.html`
+- Podgląd: `index.html`
 - Źródło danych: `plans/current_plan.json`
 
 TIP:

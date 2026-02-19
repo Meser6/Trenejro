@@ -6,7 +6,7 @@ NAJWAŻNIEJSZE PLIKI:
 - `data/training_log.csv`     — dziennik treningów (tu dopisujesz / tu dopisuje asystent)
 - `data/planned_sessions.csv` — zaplanowane aktywności użytkownika (fixed constraints)
 - `plans/current_plan.json`   — aktualny plan (ŹRÓDŁO PRAWDY)
-- `plans/current_plan.html`   — podgląd planu (render)
+- `index.html`                — podgląd planu (render)
 - `plans/current_plan.csv`    — plan w CSV
 - `plans/archive/`            — archiwum planów
 
@@ -22,7 +22,7 @@ SKRYPTY:
 - `node scripts/read_context.js`
   - pokazuje datę + ostatnie treningi (i zwykle planowane aktywności)
 - `node scripts/render_plan.js`
-  - render `plans/current_plan.json` → `plans/current_plan.html`
+  - render `plans/current_plan.json` → `index.html`
 - `node scripts/render_plan_csv.js`
   - render `plans/current_plan.json` → `plans/current_plan.csv`
 

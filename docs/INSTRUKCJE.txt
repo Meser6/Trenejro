@@ -18,7 +18,7 @@ JAK UŻYWAĆ (TL;DR):
   - Szczegóły: `docs/instructions/20_generowanie_planu.txt`
 
 - Sprawdź plan:
-  - Podgląd: `plans/current_plan.html`
+  - Podgląd: `index.html`
   - Źródło: `plans/current_plan.json`
 
 - Workflow GIT (ważne):
@@ -45,7 +45,7 @@ WAŻNE PLIKI (skrót):
 - `data/training_log.csv`          <- dziennik treningów
 - `data/planned_sessions.csv`      <- zaplanowane aktywności (fixed constraints)
 - `plans/current_plan.json`        <- plan (źródło)
-- `plans/current_plan.html`        <- plan (podgląd)
+- `index.html`                    <- plan (podgląd)
 - `plans/current_plan.csv`         <- plan (CSV)
 - `plans/archive/`                 <- archiwum
 - `docs/ATHLETE_CONTEXT.txt`       <- kontekst (czytać przed planowaniem)

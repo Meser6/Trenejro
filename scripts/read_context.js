@@ -213,9 +213,9 @@ if (fs.existsSync('data/planned_sessions.csv')) {
 }
 
 // Sprawdź czy istnieje aktualny plan (JSON/HTML)
-if (fs.existsSync('plans/current_plan.html') || fs.existsSync('plans/current_plan.json')) {
+if (fs.existsSync('index.html') || fs.existsSync('plans/current_plan.json')) {
     console.log('=== ISTNIEJE AKTUALNY PLAN ===');
-    if (fs.existsSync('plans/current_plan.html')) console.log('Podgląd: plans/current_plan.html');
+    if (fs.existsSync('index.html')) console.log('Podgląd: index.html');
     if (fs.existsSync('plans/current_plan.json')) console.log('Źródło:  plans/current_plan.json');
     console.log('');
 }

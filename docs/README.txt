@@ -38,7 +38,7 @@ Asystent:
 - Przeczyta `data/training_log.csv` (ostatnie treningi)
 - Sprawdzi `data/planned_sessions.csv` (czy masz już zaplanowane aktywności w najbliższych dniach)
 - Wygeneruje plan na podstawie aktywności, historii, dolegliwości (kolana/Achilles), sezonowości i adaptacji
-- Zapisze plan jako JSON w `plans/current_plan.json`, a podgląd jako HTML w `plans/current_plan.html` (nie generujemy żadnych plików `.txt`)
+- Zapisze plan jako JSON w `plans/current_plan.json`, a podgląd jako HTML w `index.html` (nie generujemy żadnych plików `.txt`)
 - Wygeneruje CSV w `plans/current_plan.csv`
 - Zarchiwizuje JSON+HTML+CSV w `plans/archive/`
 
@@ -51,12 +51,12 @@ Szczegółowe instrukcje:
 
 ```
 trener/
+├── index.html                    ← Aktualny plan (podgląd)
 ├── data/                         ← DANE TRENINGOWE
 │   ├── training_log.csv         ← TUTAJ DOPISUJESZ TRENINGI
 │   └── reporting_template_schema_detailed.csv
 ├── plans/                        ← PLANY TRENINGOWE
 │   ├── current_plan.json        ← Aktualny plan (źródło)
-│   ├── current_plan.html        ← Aktualny plan (podgląd)
 │   └── archive/                  ← Archiwum planów
 │       └── YYYY-MM-DD_plan.(json|html)
 ├── scripts/                      ← SKRYPTY
@@ -78,7 +78,7 @@ trener/
 
 1. **Po treningu:** Otwórz `data/training_log.csv`, dodaj wiersz z danymi treningu
 2. **Przed nowym tygodniem:** W nowym czacie napisz "Wygeneruj plan na następny tydzień"
-3. **Sprawdź plan:** Otwórz `plans/current_plan.html`
+3. **Sprawdź plan:** Otwórz `index.html`
 
 ## ⚠️ Ważne
 - Zawsze dopisuj treningi do `data/training_log.csv`

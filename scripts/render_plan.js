@@ -3,7 +3,7 @@
  *
  * Usage:
  *   node scripts/render_plan.js
- *   node scripts/render_plan.js --in plans/current_plan.json --out plans/current_plan.html
+ *   node scripts/render_plan.js --in plans/current_plan.json --out index.html
  *   node scripts/render_plan.js --template templates/plan_template_tabs_dashboard.html
  *
  * Template:
@@ -21,7 +21,7 @@ function argValue(flag) {
 }
 
 const inPath = argValue("--in") || path.join("plans", "current_plan.json");
-const outPath = argValue("--out") || path.join("plans", "current_plan.html");
+const outPath = argValue("--out") || "index.html";
 const templatePath = argValue("--template") || path.join("templates", "plan_template.html");
 
 function isoNow() {
