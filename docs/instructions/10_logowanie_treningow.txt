@@ -1,0 +1,64 @@
+================================================================================
+LOGOWANIE TRENINGÓW (CSV) — JAK PISAĆ / CO JEST MINIMUM
+================================================================================
+
+CEL:
+- Utrzymać spójny dziennik w `data/training_log.csv`, żeby plan był adaptacyjny i bezpieczny
+  (kolana / Achilles).
+
+MASZ 2 OPCJE:
+
+A) RĘCZNIE (w pliku):
+   - Otwórz `data/training_log.csv`
+   - Dodaj nowy wiersz
+
+B) OPISOWO W CZACIE (ZALECANE):
+   - Wklej opis treningu po polsku (np. „dzisiaj biegłem…, 40 min, tempo…, ból kolan…”)
+   - Asystent:
+     - rozpozna „dzisiaj / wczoraj” (używa `node scripts/get_date.js`)
+     - dopyta o braki
+     - sprawdzi ryzyko duplikatu
+     - dopisze poprawny wiersz do `data/training_log.csv`
+
+--------------------------------------------------------------------------------
+MINIMUM DANYCH (żeby dopisać trening)
+--------------------------------------------------------------------------------
+
+- Data: dzisiaj / wczoraj / YYYY-MM-DD
+- Sport: bieg / squash / basen / skitouring / rower / trekking / inne
+- Czas: np. 40 min / 1:15 / 7h
+- RPE: X/10 (1–10)
+- Kolana (w trakcie): X/10 + strona (lewe/prawe/oba)
+- Achilles (następnego ranka): X/10 + strona (lewe/prawe/oba)
+
+Jeśli nie podasz strony (L/P):
+- asystent wpisze wartości do obu i zaznaczy w `notes`, że strona nieokreślona.
+
+Skale bólu zapisujemy konsekwentnie jako:
+- before | during | after | next_morning (0–10; brak danych = puste pole)
+
+--------------------------------------------------------------------------------
+OPCJONALNIE (bardzo pomaga przy planowaniu)
+--------------------------------------------------------------------------------
+
+- Dystans: X km
+- Przewyższenie: +X m
+- Nawierzchnia: bieżnia / asfalt / trail / śnieg / indoor
+- Kolana (następnego ranka): L X/10, P X/10
+- Tempo średnie: mm:ss/km (głównie dla biegów)
+- Uwagi: warunki, technika (np. zbiegi), odżywianie, „po 0/10”, itd.
+
+--------------------------------------------------------------------------------
+SZABLON (do wklejenia w czacie)
+--------------------------------------------------------------------------------
+
+Data:
+Sport:
+Czas:
+(Dystans / przewyższenie / tempo):
+RPE:
+Kolana (before/during/after/next_morning + strona):
+Achilles (before/during/after/next_morning + strona):
+Uwagi:
+
+

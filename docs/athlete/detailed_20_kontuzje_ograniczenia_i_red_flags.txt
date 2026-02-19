@@ -1,0 +1,34 @@
+# PROFIL SZCZEGÓŁOWY — KONTUZJE / OGRANICZENIA / RED FLAGS (Kuba)
+
+## 3) Historia kontuzji / ograniczenia
+
+### 3.1 Kolano — ból boczny (podejrzenie ITB / lateral overload)
+- Początek: **po 2. maratonie (rok do potwierdzenia datą)**.
+- Początek objawów: **w trakcie biegu**; potem utrzymywało się **podczas aktywności przez kilka miesięcy**.
+- Strona: **oba kolana**, ból po **zewnętrznych** stronach.
+- Charakter bólu: **kłucie punktowe** po zewnętrznych “ścięgnach” (lateral), ból ostry.
+- Objawy towarzyszące: **blokady zaraz po bieganiu** (do doprecyzowania charakteru blokady).
+- Najsilniejsza prowokacja: **asfalt**.
+- Co poprawia: **trail** (odkąd biegasz trail, jest lepiej).
+- Inne prowokacje: **squash** — delikatnie, szybko mija, ~**1/10**.
+- Epizody “uciekania” kolana: zdarzały się, ale **dawno**.
+- Aktualność: obecnie zwykle małe/epizodyczne lub bezobjawowo (zależne od obciążenia) — monitorować w `data/training_log.csv`.
+- Diagnostyka (wg relacji): **tomografia (CT)** kolan — **bez niepokojących zmian**.
+- Fizjoterapia: kontrolnie za tydzień (2026-02) — przygotowana lista pytań/testów (poniżej / w rozmowie).
+- Ryzyka: szybka progresja, za dużo intensywności za wcześnie, monotonia,
+  słaba stabilizacja biodra, siedząca praca
+- Ochrona: zróżnicowany teren, niższe tempo, siła/stabilizacja, góry/ski
+
+### 3.2 Kostka — prawa, zerwanie więzadeł (~7 lat temu)
+- Strona: **prawa**
+- Mechanizm: zerwanie więzadeł (dokładnie których — do doprecyzowania, często ATFL/CFL).
+- Przebieg od urazu: co jakiś czas skręcenia w górach.
+- Objawy po skręceniu: zwykle tylko **~5 minut bólu**, bez dłuższych dolegliwości.
+- Aktualnie: funkcjonalnie OK, ale to klasyczny profil pod **przewlekłą niestabilność** → warto sprawdzić.
+- Warto monitorować: stabilność (testy), propriocepcja, zakres zgięcia grzbietowego, siła strzałkowych, kontrola stopy w obciążeniu.
+
+### 3.3 Czerwone flagi (kiedy przerywamy i diagnozujemy głębiej)
+- Kolano: blokowanie/zakleszczanie, duży wysięk, ból w spoczynku/nocny, niestabilność “uciekanie”, ból narastający mimo redukcji obciążeń.
+- Kostka: uczucie niestabilności na co dzień, częste skręcenia, obrzęk/ból utrzymujący się >48–72 h po epizodzie.
+
+

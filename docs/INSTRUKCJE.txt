@@ -1,0 +1,70 @@
+================================================================================
+SYSTEM PLANOWANIA TRENINGÓW - INSTRUKCJE
+================================================================================
+
+UWAGA: Jeśli pliki `.md` nie otwierają się poprawnie w Twoim środowisku,
+używaj plików `.txt` — treść jest taka sama.
+
+================================================================================
+JAK UŻYWAĆ (TL;DR):
+================================================================================
+
+- Po treningu: zaloguj trening do `data/training_log.csv`
+  - Najłatwiej: opisz trening w czacie → asystent dopisze do CSV.
+  - Szczegóły: `docs/instructions/10_logowanie_treningow.txt`
+
+- Przed nowym planem (w nowym czacie): napisz „Daj mi plan” / „Wygeneruj plan”
+  - Plan jest zawsze na 7 dni „rolling” = dzisiaj + 6 dni.
+  - Szczegóły: `docs/instructions/20_generowanie_planu.txt`
+
+- Sprawdź plan:
+  - Podgląd: `plans/current_plan.html`
+  - Źródło: `plans/current_plan.json`
+
+- Workflow GIT (ważne):
+  - Po KAŻDYM update:
+    - planu (`plans/current_plan.*` lub `plans/archive/*`)
+    - loga treningowego (`data/training_log.csv`)
+    - wygenerowaniu nowego planu
+    → asystent robi `git add -A`, `git commit`, `git push`.
+  - Szczegóły: `docs/instructions/30_pliki_i_skrypty.txt`
+
+================================================================================
+MODUŁY INSTRUKCJI (polecane czytanie):
+================================================================================
+
+- `docs/instructions/00_szybki_start.txt`
+- `docs/instructions/10_logowanie_treningow.txt`
+- `docs/instructions/20_generowanie_planu.txt`
+- `docs/instructions/30_pliki_i_skrypty.txt`
+
+================================================================================
+WAŻNE PLIKI (skrót):
+================================================================================
+
+- `data/training_log.csv`          <- dziennik treningów
+- `data/planned_sessions.csv`      <- zaplanowane aktywności (fixed constraints)
+- `plans/current_plan.json`        <- plan (źródło)
+- `plans/current_plan.html`        <- plan (podgląd)
+- `plans/current_plan.csv`         <- plan (CSV)
+- `plans/archive/`                 <- archiwum
+- `docs/ATHLETE_CONTEXT.txt`       <- kontekst (czytać przed planowaniem)
+- `docs/ATHLETE_DETAILED_PROFILE.txt` <- profil szczegółowy (czytać przed planowaniem)
+
+================================================================================
+SKRYPTY (skrót):
+================================================================================
+
+- `node scripts/get_date.js`         <- data + zakresy tygodnia
+- `node scripts/read_context.js`     <- data + ostatnie treningi (+ planned sessions)
+- `node scripts/render_plan.js`      <- JSON → HTML
+- `node scripts/render_plan_csv.js`  <- JSON → CSV
+
+================================================================================
+CEL:
+================================================================================
+
+50km ultra trail we wrześniu/październiku 2026
+
+================================================================================
+

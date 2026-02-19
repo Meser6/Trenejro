@@ -1,0 +1,10 @@
+date,sport,session_type,surface,duration_min,distance_km,elevation_gain_m,avg_pace,RPE_1_10,knee_left_pain_during,knee_left_pain_next_morning,knee_right_pain_during,knee_right_pain_next_morning,achilles_pain,notes
+2026-02-09,run,intervals,treadmill,43,7.0,0,06:09,5,0,0,0,0,0,"Bieżnia: 7 km / 43 min, interwały. Brak bólu."
+2026-02-10,squash,intense,indoor,60,,,,5,0,0,0,0,0,Intensywny squash 1 h.
+2026-02-11,run,trail,trail,40,7.0,100,05:43,5,0,0,0,0,0,"Bieg w terenie: 7 km / 40 min, +100 m."
+2026-02-13,squash,intense,indoor,60,,,,7,0,0,0,0,0,Intensywny squash 1 h.
+2026-02-14,run,intervals,treadmill,40,7.7,0,05:12,4,0,0,0,0,0,"Bieżnia: 7.7 km / 40 min, interwały."
+2026-02-15,swim,easy,pool_indoor,40,1.5,,,3,3,0,0,0,0,
+2026-02-16,run,easy,treadmill,40,7.3,0,05:29,3,2,1,2,1,0,"Bieżnia: 40 min, 7.3 km, małe obciążenie (tempo z czasu i dystansu: ~5:29/km; raportowane: 5:53/km). Po biegu rozciąganie. Delikatny ból kolan 1/10 podczas biegu i wieczorem (strona nieokreślona). Rano po: kolana 0/10, Achilles 0/10."
+2026-02-18,ski,skitouring,snow,420,,1530,,8,1,1,1,0,0,"Skitury w Tatrach: 7h, +1530 m. Kolana 1/10 podczas (oba); po 0/10."
+2026-02-19,swim,easy,pool_indoor,30,1.0,,,1,0,0,0,0,0,"Basen: 1000 m / 30 min. Zmęczenie 1/10. Ból 0/10; następnego ranka 0/10."

@@ -1,0 +1,664 @@
+<!doctype html>
+<html lang="pl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Plan treningowy</title>
+    <style>
+      :root {
+        --bg: #f6f6f6;
+        --card: #ffffff;
+        --text: #111111; /* Strava-like black */
+        --muted: rgba(17, 17, 17, 0.72);
+        --muted2: rgba(17, 17, 17, 0.56);
+        --border: rgba(17, 17, 17, 0.16);
+        --accent: #fc4c02; /* Strava orange */
+        --accentSoft: rgba(252, 76, 2, 0.14);
+        --good: #16a34a;
+        --warn: #f59e0b;
+        --bad: #ef4444;
+        --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+          "Courier New", monospace;
+        --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      }
+
+      * { box-sizing: border-box; }
+      html, body { height: 100%; }
+      body {
+        margin: 0;
+        font-family: var(--sans);
+        color: var(--text);
+        background: var(--bg);
+      }
+
+      a { color: var(--accent); text-decoration: none; }
+      a:hover { text-decoration: underline; }
+
+      .wrap { max-width: 1100px; margin: 0 auto; padding: 18px 14px 46px; }
+
+      .topbar {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 14px;
+        padding: 14px 14px 12px;
+        border: 1px solid var(--border);
+        background: #ffffff;
+        border-radius: 16px;
+        box-shadow: 0 10px 30px rgba(17,17,17,0.08);
+      }
+      .title { font-size: 18px; font-weight: 900; margin: 0 0 4px; letter-spacing: -0.2px; }
+      .subtitle { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.4; }
+      .meta {
+        text-align: right;
+        color: var(--muted2);
+        font-size: 12px;
+        line-height: 1.5;
+        font-family: var(--mono);
+      }
+
+      .tabs {
+        margin-top: 12px;
+        display: flex;
+        gap: 8px;
+        padding: 8px;
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        background: #ffffff;
+        position: sticky;
+        top: 10px;
+        z-index: 5;
+        box-shadow: 0 10px 30px rgba(17,17,17,0.08);
+      }
+      .tab {
+        appearance: none;
+        border: 1px solid transparent;
+        background: transparent;
+        color: rgba(17, 17, 17, 0.78);
+        padding: 9px 12px;
+        font-size: 13px;
+        border-radius: 12px;
+        cursor: pointer;
+        font-weight: 900;
+      }
+      .tab[aria-selected="true"] {
+        background: #fff;
+        border-color: rgba(252, 76, 2, 0.42);
+        color: var(--text);
+        box-shadow: 0 0 0 3px rgba(252, 76, 2, 0.10);
+      }
+
+      /* Highlight Today tab */
+      .tab.today {
+        border-color: rgba(252, 76, 2, 0.55);
+        background: var(--accent);
+        color: #fff;
+      }
+      .tab.today[aria-selected="true"] {
+        background: var(--accent);
+        color: #fff;
+        border-color: rgba(0,0,0,0.35);
+        box-shadow: 0 0 0 3px rgba(0,0,0,0.08);
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        gap: 12px;
+        margin-top: 12px;
+      }
+
+      .card {
+        grid-column: span 12;
+        border: 1px solid var(--border);
+        background: var(--card);
+        border-radius: 16px;
+        padding: 14px 14px 12px;
+        box-shadow: 0 10px 30px rgba(17,17,17,0.08);
+      }
+
+      .card h3 {
+        margin: 0 0 10px;
+        font-size: 12px;
+        color: var(--muted2);
+        font-weight: 900;
+        letter-spacing: 0.4px;
+        text-transform: uppercase;
+      }
+
+      .planSummaryBar {
+        margin-bottom: 12px;
+        border: 1px solid rgba(252, 76, 2, 0.35);
+        background: rgba(252, 76, 2, 0.08);
+        border-radius: 14px;
+        padding: 10px;
+      }
+      .planSummaryBar .label {
+        font-size: 12px;
+        font-weight: 900;
+        color: #111;
+        letter-spacing: 0.3px;
+        text-transform: uppercase;
+        margin: 0 0 8px;
+      }
+
+      .pillrow { display: flex; flex-wrap: wrap; gap: 8px; }
+      .pill {
+        border: 1px solid var(--border);
+        background: rgba(17,17,17,0.03);
+        border-radius: 999px;
+        padding: 7px 10px;
+        font-size: 12px;
+        color: var(--muted);
+        display: inline-flex;
+        align-items: baseline;
+        gap: 8px;
+      }
+      .pill b { color: var(--text); font-weight: 900; }
+
+      .list { margin: 0; padding-left: 18px; }
+      .list li { color: var(--muted); line-height: 1.55; margin: 6px 0; }
+
+      /* Plan: responsive (table -> cards) */
+      .plan-table-wrap { overflow-x: auto; border-radius: 14px; border: 1px solid var(--border); }
+      table.plan {
+        width: 100%;
+        border-collapse: collapse;
+        min-width: 760px;
+        background: #fff;
+      }
+      table.plan th, table.plan td {
+        padding: 10px 10px;
+        border-bottom: 1px solid rgba(15,23,42,0.08);
+        vertical-align: top;
+        font-size: 13px;
+        line-height: 1.35;
+      }
+      table.plan th {
+        position: sticky;
+        top: 0;
+        background: #fbfbfd;
+        color: var(--muted2);
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.3px;
+        z-index: 1;
+      }
+      table.plan tr:last-child td { border-bottom: none; }
+      .muted { color: var(--muted2); }
+      .titleCell { font-weight: 900; }
+      .notes { color: var(--muted); font-size: 12px; line-height: 1.45; }
+      .mono { font-family: var(--mono); font-size: 12px; color: var(--muted2); white-space: nowrap; }
+
+      .dayCards { display: none; gap: 10px; }
+      .dayCard {
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 12px;
+        background: #fff;
+        box-shadow: 0 8px 24px rgba(15,23,42,0.06);
+      }
+      .dayHead { display: flex; justify-content: space-between; gap: 10px; margin-bottom: 8px; }
+      .dayHead .d { font-weight: 900; letter-spacing: -0.2px; }
+      .dayHead .w { color: var(--muted2); font-family: var(--mono); font-size: 12px; }
+      .session {
+        border-top: 1px dashed rgba(15,23,42,0.12);
+        padding-top: 10px;
+        margin-top: 10px;
+      }
+      .session:first-child { border-top: none; padding-top: 0; margin-top: 0; }
+      .row { display: flex; flex-wrap: wrap; gap: 8px; margin: 6px 0 0; }
+      .chip {
+        font-size: 12px;
+        padding: 6px 10px;
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        color: var(--muted);
+        background: rgba(15,23,42,0.02);
+      }
+      .chip strong { color: var(--text); }
+
+      .footer {
+        margin-top: 12px;
+        color: var(--muted2);
+        font-size: 12px;
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+        flex-wrap: wrap;
+        font-family: var(--mono);
+      }
+
+      .panel { display: none; }
+      .panel.active { display: block; }
+
+      @media (max-width: 900px) {
+        .meta { text-align: left; }
+        .topbar { flex-direction: column; }
+      }
+      @media (max-width: 720px) {
+        .tabs { gap: 6px; padding: 6px; top: 6px; }
+        .tab { padding: 10px 10px; font-size: 13px; }
+        .plan-table-wrap { display: none; }
+        .dayCards { display: grid; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <div class="topbar">
+        <div>
+          <h1 class="title" id="plan-title">Plan treningowy</h1>
+          <p class="subtitle" id="plan-subtitle"></p>
+        </div>
+        <div class="meta">
+          <div id="plan-meta"></div>
+          <div>Generated: <span id="generated-at">__GENERATED_AT__</span></div>
+        </div>
+      </div>
+
+      <div class="tabs" role="tablist" aria-label="Nawigacja planu">
+        <button class="tab" role="tab" id="tab-plan" aria-controls="panel-plan" aria-selected="true">Plan</button>
+        <button class="tab today" role="tab" id="tab-today" aria-controls="panel-today" aria-selected="false">Dzisiaj</button>
+        <button class="tab" role="tab" id="tab-plans" aria-controls="panel-plans" aria-selected="false">Plany</button>
+        <button class="tab" role="tab" id="tab-calendar" aria-controls="panel-calendar" aria-selected="false">Kalendarz</button>
+      </div>
+
+      <div class="grid">
+        <section class="card panel active" id="panel-plan" role="tabpanel" aria-labelledby="tab-plan" tabindex="0">
+          <h3>Plan (7 dni)</h3>
+          <div class="planSummaryBar">
+            <div class="label">Podsumowanie tygodnia</div>
+            <div class="pillrow" id="summary-pills"></div>
+          </div>
+          <div class="plan-table-wrap">
+            <div class="plan-table-wrap">
+              <table class="plan" id="plan-table">
+                <thead>
+                  <tr>
+                    <th style="width: 105px">Data</th>
+                    <th style="width: 90px">Dzień</th>
+                    <th style="min-width: 200px">Sesja</th>
+                    <th style="width: 90px">Sport</th>
+                    <th style="width: 120px">Typ</th>
+                    <th style="width: 90px">Czas</th>
+                    <th style="width: 90px">Dystans</th>
+                    <th style="width: 70px">+m</th>
+                    <th style="width: 80px">RPE</th>
+                    <th style="min-width: 320px">Notatki</th>
+                  </tr>
+                </thead>
+                <tbody id="plan-tbody"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="dayCards" id="day-cards"></div>
+        </section>
+
+        <section class="card panel" id="panel-today" role="tabpanel" aria-labelledby="tab-today" tabindex="0">
+          <h3 id="today-title">Dzisiaj</h3>
+          <div class="muted" id="today-subtitle" style="margin-top:-6px; font-size:12px;"></div>
+          <div id="today-body" style="margin-top:12px;"></div>
+        </section>
+
+        <section class="card panel" id="panel-plans" role="tabpanel" aria-labelledby="tab-plans" tabindex="0">
+          <h3>Plany (przyszłość)</h3>
+          <div class="muted" style="font-size:12px; margin-top:-6px;">Z `data/planned_sessions.csv` (bez ograniczenia do 7 dni).</div>
+          <div class="plan-table-wrap" style="margin-top:12px;">
+            <table class="plan" id="plans-table" style="min-width: 720px;">
+              <thead>
+                <tr>
+                  <th style="width: 105px">Data</th>
+                  <th style="width: 90px">Sport</th>
+                  <th style="width: 120px">Typ</th>
+                  <th style="width: 90px">Czas</th>
+                  <th style="width: 90px">Dystans</th>
+                  <th style="width: 70px">+m</th>
+                  <th style="min-width: 360px">Notatki</th>
+                </tr>
+              </thead>
+              <tbody id="plans-tbody"></tbody>
+            </table>
+          </div>
+          <div class="dayCards" id="plans-cards" style="margin-top:12px;"></div>
+        </section>
+
+        <section class="card panel" id="panel-calendar" role="tabpanel" aria-labelledby="tab-calendar" tabindex="0">
+          <h3>Kalendarz (training log — skrót)</h3>
+          <div class="muted" style="font-size:12px; margin-top:-6px;">Z `data/training_log.csv` (pokazuje datę, sport, czas/dystans, RPE, ból). </div>
+          <div class="plan-table-wrap" style="margin-top:12px;">
+            <table class="plan" id="log-table" style="min-width: 760px;">
+              <thead>
+                <tr>
+                  <th style="width: 105px">Data</th>
+                  <th style="width: 90px">Sport</th>
+                  <th style="width: 120px">Typ</th>
+                  <th style="width: 90px">Czas</th>
+                  <th style="width: 90px">Dystans</th>
+                  <th style="width: 70px">+m</th>
+                  <th style="width: 70px">RPE</th>
+                  <th style="width: 130px">Kolano (L/R)</th>
+                  <th style="width: 90px">Achilles</th>
+                  <th style="min-width: 280px">Notatki</th>
+                </tr>
+              </thead>
+              <tbody id="log-tbody"></tbody>
+            </table>
+          </div>
+          <div class="dayCards" id="log-cards" style="margin-top:12px;"></div>
+        </section>
+      </div>
+
+      <div class="footer">
+        <div id="file-hints"></div>
+        <div id="version-hints"></div>
+      </div>
+    </div>
+
+    <script id="plan-data" type="application/json">__PLAN_JSON__</script>
+    <script>
+      const plan = JSON.parse(document.getElementById('plan-data').textContent);
+
+      const fmt = {
+        km: (v) => (v === null || v === undefined || v === '') ? '—' : `${Number(v).toFixed(1)} km`,
+        m: (v) => (v === null || v === undefined || v === '') ? '—' : `${Math.round(Number(v))} m`,
+        min: (v) => (v === null || v === undefined || v === '') ? '—' : `${Math.round(Number(v))} min`,
+      };
+
+      // Header
+      document.getElementById('plan-title').textContent = plan.title || 'Plan treningowy';
+      const range = (plan.week && plan.week.start && plan.week.end) ? `${plan.week.start} → ${plan.week.end}` : '';
+      document.getElementById('plan-subtitle').textContent =
+        `${range}${plan.context?.season ? `  •  ${plan.context.season}` : ''}${plan.context?.location ? `  •  ${plan.context.location}` : ''}`;
+      document.getElementById('plan-meta').textContent =
+        `${plan.athlete?.name ? plan.athlete.name + '  •  ' : ''}${plan.goal?.event ? plan.goal.event : ''}`;
+
+      // Tabs
+      const tabs = Array.from(document.querySelectorAll('.tab'));
+      const panels = Array.from(document.querySelectorAll('.panel'));
+      function activate(tabId) {
+        tabs.forEach(t => t.setAttribute('aria-selected', t.id === tabId ? 'true' : 'false'));
+        panels.forEach(p => p.classList.toggle('active', p.getAttribute('aria-labelledby') === tabId));
+      }
+      tabs.forEach(t => t.addEventListener('click', () => activate(t.id)));
+      document.addEventListener('keydown', (e) => {
+        if (!['ArrowLeft','ArrowRight'].includes(e.key)) return;
+        const i = tabs.findIndex(t => t.getAttribute('aria-selected') === 'true');
+        const next = e.key === 'ArrowRight' ? Math.min(tabs.length - 1, i + 1) : Math.max(0, i - 1);
+        tabs[next].focus();
+        activate(tabs[next].id);
+      });
+
+      // Summary pills
+      const pills = [];
+      if (plan.summary?.runs !== undefined) pills.push({k:'Biegi', v: plan.summary.runs});
+      if (plan.summary?.total_distance_km !== undefined) pills.push({k:'Dystans', v: fmt.km(plan.summary.total_distance_km)});
+      if (plan.summary?.total_elevation_gain_m !== undefined) pills.push({k:'Przewyższenie+', v: fmt.m(plan.summary.total_elevation_gain_m)});
+      if (plan.summary?.rest_days !== undefined) pills.push({k:'Odpoczynek', v: plan.summary.rest_days});
+      const pillsEl = document.getElementById('summary-pills');
+      pills.forEach(p => {
+        const el = document.createElement('span');
+        el.className = 'pill';
+        el.innerHTML = `<span>${p.k}</span><b>${p.v}</b>`;
+        pillsEl.appendChild(el);
+      });
+      // TODAY tab (dynamic)
+      function isoToday() {
+        const d = new Date();
+        const y = d.getFullYear();
+        const m = String(d.getMonth() + 1).padStart(2, '0');
+        const day = String(d.getDate()).padStart(2, '0');
+        return `${y}-${m}-${day}`;
+      }
+
+      const todayIso = isoToday();
+      const todayDay = (plan.days || []).find(d => d.date === todayIso) || null;
+      document.getElementById('today-title').textContent = `Dzisiaj: ${todayIso}`;
+      document.getElementById('today-subtitle').textContent =
+        todayDay ? `${todayDay.day_name || ''} (${todayDay.day_short || ''})` : `Brak dnia w rolling-planie (${plan.week?.start || ''} → ${plan.week?.end || ''})`;
+
+      const todayBody = document.getElementById('today-body');
+      function renderToday() {
+        todayBody.innerHTML = '';
+        if (!todayDay) {
+          const div = document.createElement('div');
+          div.className = 'muted';
+          div.textContent = '—';
+          todayBody.appendChild(div);
+          return;
+        }
+        const sessions = todayDay.sessions || [];
+        if (sessions.length === 0) {
+          const div = document.createElement('div');
+          div.className = 'muted';
+          div.textContent = '—';
+          todayBody.appendChild(div);
+          return;
+        }
+        sessions.forEach((s) => {
+          const box = document.createElement('div');
+          box.className = 'dayCard';
+          box.style.marginBottom = '10px';
+          box.innerHTML = `
+            <div class="titleCell">${s.title || 'Sesja'}</div>
+            <div class="row" style="margin-top:10px;">
+              <span class="chip"><strong>${s.sport || '—'}</strong> • ${s.session_type || '—'}</span>
+              <span class="chip">Czas: <strong>${fmt.min(s.duration_min)}</strong></span>
+              <span class="chip">Dyst: <strong>${fmt.km(s.distance_km)}</strong></span>
+              <span class="chip">+m: <strong>${fmt.m(s.elevation_gain_m)}</strong></span>
+              <span class="chip">RPE: <strong>${(s.rpe === null || s.rpe === undefined || s.rpe === '') ? '—' : `${s.rpe}/10`}</strong></span>
+            </div>
+            ${s.notes ? `<div class="notes" style="margin-top:10px;">${s.notes}</div>` : ``}
+          `;
+          todayBody.appendChild(box);
+        });
+      }
+      renderToday();
+
+      // Plan table + mobile cards
+      const tbody = document.getElementById('plan-tbody');
+      const cardWrap = document.getElementById('day-cards');
+      (plan.days || []).forEach(d => {
+        const sessions = (d.sessions || []);
+
+        // Table rows
+        if (sessions.length === 0) {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td class="mono">${d.date || ''}</td>
+            <td><div>${d.day_name || ''}</div><div class="mono">${d.day_short || ''}</div></td>
+            <td class="muted" colspan="7">—</td>
+            <td class="muted">—</td>
+          `;
+          tbody.appendChild(tr);
+        } else {
+          sessions.forEach((s, idx) => {
+            const showDay = idx === 0;
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+              <td class="mono">${showDay ? (d.date || '') : ''}</td>
+              <td>${showDay ? `<div>${d.day_name || ''}</div><div class="mono">${d.day_short || ''}</div>` : ''}</td>
+              <td><div class="titleCell">${s.title || 'Sesja'}</div></td>
+              <td class="muted">${s.sport || '—'}</td>
+              <td class="muted">${s.session_type || '—'}</td>
+              <td class="muted">${fmt.min(s.duration_min)}</td>
+              <td class="muted">${fmt.km(s.distance_km)}</td>
+              <td class="muted">${fmt.m(s.elevation_gain_m)}</td>
+              <td class="muted">${(s.rpe === null || s.rpe === undefined || s.rpe === '') ? '—' : `${s.rpe}/10`}</td>
+              <td class="notes">${s.notes || ''}</td>
+            `;
+            tbody.appendChild(tr);
+          });
+        }
+
+        // Mobile day cards
+        const dc = document.createElement('div');
+        dc.className = 'dayCard';
+        dc.innerHTML = `
+          <div class="dayHead">
+            <div>
+              <div class="d">${d.day_name || ''}</div>
+              <div class="w">${d.date || ''} • ${d.day_short || ''}</div>
+            </div>
+          </div>
+        `;
+        if (sessions.length === 0) {
+          const empty = document.createElement('div');
+          empty.className = 'muted';
+          empty.textContent = '—';
+          dc.appendChild(empty);
+        } else {
+          sessions.forEach((s) => {
+            const se = document.createElement('div');
+            se.className = 'session';
+            const title = s.title || 'Sesja';
+            se.innerHTML = `
+              <div class="titleCell">${title}</div>
+              <div class="row">
+                <span class="chip"><strong>${s.sport || '—'}</strong> • ${s.session_type || '—'}</span>
+                <span class="chip">Czas: <strong>${fmt.min(s.duration_min)}</strong></span>
+                <span class="chip">Dyst: <strong>${fmt.km(s.distance_km)}</strong></span>
+                <span class="chip">+m: <strong>${fmt.m(s.elevation_gain_m)}</strong></span>
+                <span class="chip">RPE: <strong>${(s.rpe === null || s.rpe === undefined || s.rpe === '') ? '—' : `${s.rpe}/10`}</strong></span>
+              </div>
+              ${s.notes ? `<div class="notes" style="margin-top:8px;">${s.notes}</div>` : ``}
+            `;
+            dc.appendChild(se);
+          });
+        }
+        cardWrap.appendChild(dc);
+      });
+
+      // PLANS tab (planned_sessions future, no 7-day limit)
+      const plansRows = Array.isArray(plan.datasets?.planned_sessions) ? plan.datasets.planned_sessions : [];
+      const futurePlans = plansRows
+        .filter(r => r.date && r.date >= todayIso)
+        .sort((a, b) => (a.date || '').localeCompare(b.date || ''));
+
+      const plansTbody = document.getElementById('plans-tbody');
+      const plansCards = document.getElementById('plans-cards');
+
+      function renderPlans() {
+        plansTbody.innerHTML = '';
+        plansCards.innerHTML = '';
+
+        if (futurePlans.length === 0) {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `<td class="mono" colspan="7">—</td>`;
+          plansTbody.appendChild(tr);
+          const div = document.createElement('div');
+          div.className = 'muted';
+          div.textContent = '—';
+          plansCards.appendChild(div);
+          return;
+        }
+
+        futurePlans.forEach((p) => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td class="mono">${p.date || ''}</td>
+            <td class="muted">${p.sport || '—'}</td>
+            <td class="muted">${p.session_type || '—'}</td>
+            <td class="muted">${p.duration_min ? fmt.min(p.duration_min) : '—'}</td>
+            <td class="muted">${p.distance_km ? fmt.km(p.distance_km) : '—'}</td>
+            <td class="muted">${p.elevation_gain_m ? fmt.m(p.elevation_gain_m) : '—'}</td>
+            <td class="notes">${p.notes || ''}</td>
+          `;
+          plansTbody.appendChild(tr);
+
+          const c = document.createElement('div');
+          c.className = 'dayCard';
+          c.innerHTML = `
+            <div class="dayHead">
+              <div>
+                <div class="d">${p.date || ''}</div>
+                <div class="w">${(p.sport || '—')} • ${(p.session_type || '—')}</div>
+              </div>
+            </div>
+            <div class="row">
+              <span class="chip">Czas: <strong>${p.duration_min ? fmt.min(p.duration_min) : '—'}</strong></span>
+              <span class="chip">Dyst: <strong>${p.distance_km ? fmt.km(p.distance_km) : '—'}</strong></span>
+              <span class="chip">+m: <strong>${p.elevation_gain_m ? fmt.m(p.elevation_gain_m) : '—'}</strong></span>
+            </div>
+            ${p.notes ? `<div class="notes" style="margin-top:10px;">${p.notes}</div>` : ``}
+          `;
+          plansCards.appendChild(c);
+        });
+      }
+      renderPlans();
+
+      // CALENDAR tab (training_log short)
+      const logRows = Array.isArray(plan.datasets?.training_log) ? plan.datasets.training_log : [];
+      const sortedLog = logRows
+        .filter(r => r.date)
+        .sort((a, b) => (b.date || '').localeCompare(a.date || ''));
+
+      const logTbody = document.getElementById('log-tbody');
+      const logCards = document.getElementById('log-cards');
+
+      function renderLog(maxRows = 250) {
+        logTbody.innerHTML = '';
+        logCards.innerHTML = '';
+
+        const slice = sortedLog.slice(0, maxRows);
+        if (slice.length === 0) {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `<td class="mono" colspan="10">—</td>`;
+          logTbody.appendChild(tr);
+          const div = document.createElement('div');
+          div.className = 'muted';
+          div.textContent = '—';
+          logCards.appendChild(div);
+          return;
+        }
+
+        slice.forEach((r) => {
+          const knee = `${r.knee_left_pain_during || '—'}/${r.knee_right_pain_during || '—'} (w) • ${r.knee_left_pain_next_morning || '—'}/${r.knee_right_pain_next_morning || '—'} (rano)`;
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td class="mono">${r.date || ''}</td>
+            <td class="muted">${r.sport || '—'}</td>
+            <td class="muted">${r.session_type || '—'}</td>
+            <td class="muted">${r.duration_min ? fmt.min(r.duration_min) : '—'}</td>
+            <td class="muted">${r.distance_km ? fmt.km(r.distance_km) : '—'}</td>
+            <td class="muted">${r.elevation_gain_m ? fmt.m(r.elevation_gain_m) : '—'}</td>
+            <td class="muted">${r.rpe ? `${r.rpe}/10` : '—'}</td>
+            <td class="muted">${knee}</td>
+            <td class="muted">${r.achilles_pain ? `${r.achilles_pain}/10` : '—'}</td>
+            <td class="notes">${r.notes || ''}</td>
+          `;
+          logTbody.appendChild(tr);
+
+          const c = document.createElement('div');
+          c.className = 'dayCard';
+          c.innerHTML = `
+            <div class="dayHead">
+              <div>
+                <div class="d">${r.date || ''}</div>
+                <div class="w">${(r.sport || '—')} • ${(r.session_type || '—')}</div>
+              </div>
+            </div>
+            <div class="row">
+              <span class="chip">Czas: <strong>${r.duration_min ? fmt.min(r.duration_min) : '—'}</strong></span>
+              <span class="chip">Dyst: <strong>${r.distance_km ? fmt.km(r.distance_km) : '—'}</strong></span>
+              <span class="chip">+m: <strong>${r.elevation_gain_m ? fmt.m(r.elevation_gain_m) : '—'}</strong></span>
+              <span class="chip">RPE: <strong>${r.rpe ? `${r.rpe}/10` : '—'}</strong></span>
+              <span class="chip">Kolano: <strong>${(r.knee_left_pain_during || '—')}/${(r.knee_right_pain_during || '—')}</strong></span>
+              <span class="chip">Achilles: <strong>${r.achilles_pain ? `${r.achilles_pain}/10` : '—'}</strong></span>
+            </div>
+            ${r.notes ? `<div class="notes" style="margin-top:10px;">${r.notes}</div>` : ``}
+          `;
+          logCards.appendChild(c);
+        });
+      }
+      renderLog();
+
+      // Footer hints
+      document.getElementById('file-hints').textContent = plan.files?.json ? `JSON: ${plan.files.json}` : '';
+      document.getElementById('version-hints').textContent = plan.version ? `schema: ${plan.version}` : '';
+    </script>
+  </body>
+</html>
+
+

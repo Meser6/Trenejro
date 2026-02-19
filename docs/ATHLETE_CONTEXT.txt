@@ -1,0 +1,31 @@
+# KONTEKST ZAWODNIKA - Kuba (INDEX)
+
+## ⚠️ WAŻNE: Ten plik jest entry-pointem kontekstu dla nowych czatów
+**Przy każdym nowym czacie przeczytaj ten plik PRZED generowaniem planu treningowego.**
+
+Ten plik jest teraz **indeksem** (TL;DR + linki). Szczegóły są w modułach w `docs/athlete/`.
+
+---
+
+## SZYBKIE STRESZCZENIE (do planu tygodnia)
+- Cel: **50 km ultra trail** (Beskidy/średnie góry) **wrzesień/październik 2026**
+- Priorytet: **kolana (bocznie / ITB-podobne)** → progresja ostrożnie, asfalt zwykle prowokuje
+- Preferencja: **trail** (2024–2025 praktycznie 100% biegów)
+- Docelowy układ: **3–4 biegi/tydz + cross‑training** (sezonowo)
+- Cross‑training jest ważny (góry / skitour / rower w sezonie) i pomaga utrzymać “silnik” bez dobijania kolan
+- Sezonowość ma znaczenie (np. **luty ≠ rower**, **czerwiec ≠ narty**)
+
+---
+
+## MODUŁY (czytaj przed planowaniem)
+Kolejność sugerowana:
+
+1) `docs/athlete/context_10_cel_i_profil.txt`
+2) `docs/athlete/context_20_historia_biegania.txt`
+3) `docs/athlete/context_30_zdrowie_i_ograniczenia.txt`
+4) `docs/athlete/context_40_cross_training.txt`
+5) `docs/athlete/context_50_sezonowosc_szczegoly.txt`
+6) `docs/athlete/context_60_preferencje_i_zasady_planowania.txt`
+7) `docs/athlete/context_70_system_i_checklista_nowego_czatu.txt`
+
+

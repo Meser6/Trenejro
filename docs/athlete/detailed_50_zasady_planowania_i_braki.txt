@@ -1,0 +1,19 @@
+# PROFIL SZCZEGÓŁOWY — ZASADY PLANOWANIA + BRAKI (Kuba)
+
+## 8) Zasady planowania tygodnia (jak podejmować decyzje)
+
+1) Najważniejszy input: `data/training_log.csv` (ostatnie treningi + ból kolan/Achillesa + RPE + objętość).
+2) Jeżeli ból kolana/łydki/Achillesa rośnie → redukcja biegania, więcej nisko‑udarowego
+   ruchu, ostrożniej ze zbiegami.
+3) Progresja: małe kroki, bez skoków; szczególnie długi bieg i akcenty.
+4) W każdym tygodniu: różnicuj bodźce (easy, długi, lekki akcent, siła/stabilizacja).
+5) Sezonowość: dopasuj środki (zima: hala/basen/ski; lato: rower/trekking/ skała).
+
+================================================================================
+## 9) Czego brakuje (i jak to traktować)
+
+- część treningów nie była trackowana → Strava nie pokazuje całej pracy.
+- brak pełnej historii bólu/objawów w czasie → dlatego w planie priorytet ma
+  Twoje bieżące raportowanie w `data/training_log.csv`.
+
+

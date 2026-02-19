@@ -1,0 +1,69 @@
+# PROFIL SZCZEGÓŁOWY — STRAVA + TATRY (evidence) (Kuba)
+
+## 6) Strava — najważniejsze fakty z historii aktywności (2021-04-10 → 2026-02-16)
+
+Źródło: jednorazowa analiza eksportu Strava. Obejmuje 332 aktywności.
+UWAGA: część aktywności nie była trackowana (siłownia, trekking, wspinanie).
+
+### 6.1 Profil multi‑sport (liczba aktywności)
+- Run: 106
+- Ride: 84
+- Backcountry Ski: 72
+- Workout: 25
+- Swim: 19
+- Hike: 14
+- Alpine Ski: 12
+
+### 6.2 Roczne sumy (wszystkie sporty, wg Strava)
+- 2021: ~987 km, 89.6 h, +13,708 m
+- 2022: ~1,235 km, 126.2 h, +35,563 m
+- 2023: ~1,908 km, 153.4 h, +41,589 m
+- 2024: ~2,462 km, 229.7 h, +69,911 m  (bardzo mocny rok ogólnogórski)
+- 2025: ~1,091 km, 90.8 h, +23,101 m
+- 2026 (YTD): ~56 km, 10 h, +1,234 m
+
+Wniosek: masz mocną bazę ruchową (czas + przewyższenie), ale bieganie miało duże
+wahania (lata z maratonami vs lata prawie bez biegania) → progresja biegowa ma
+być ostrożna i wspierana cross‑trainingiem.
+
+### 6.3 Bieganie — szczegóły kluczowe pod 50 km trail
+- 2021: 33 biegi / ~437 km; max bieg ~42.2 km (Maraton Warszawski)
+- 2022: 34 biegi / ~445 km; max bieg ~42.7 km
+- 2024: 17 biegów / ~156.6 km; +~5,348 m (trailowy charakter, duża “gęstość przewyższeń”)
+- 2025: 16 biegów / ~134.9 km; +~5,119 m (trail, jeszcze większa gęstość przewyższeń)
+
+Wniosek praktyczny:
+- historycznie tolerujesz długie dystanse (maratony), ale po historii kolana i
+  przerwach trzeba “odbudować” tolerancję biegową + zbiegi.
+- sensowny kierunek: budować długi bieg i “czas na nogach” stopniowo; część
+  objętości zastępować nisko‑udarowym ruchem (basen/siła/ścianka/squash zimą,
+  rower w sezonie).
+
+### 6.4 Kolarstwo / skitouring — “silnik” i góry
+Z historii widać bardzo mocne komponenty:
+- długie rowery (np. do ~230 km w 2024) + duże przewyższenia
+- skitoury (Backcountry Ski) regularnie w sezonach, z dużymi sumami przewyższeń
+
+Znaczenie dla planu:
+- cross‑training może utrzymywać tlen bez “młócenia” kolan
+- w okresach ograniczeń biegowych można budować “time on feet” przez góry/ski/hike
+
+================================================================================
+## 7) Tatry — wnioski o doświadczeniu górskim
+
+Źródło: jednorazowa analiza Twojej mapy `Tatry.kmz` (ręcznie rysowane trasy) — **plik źródłowy usunięty po analizie**.
+
+Co jest pewne i użyteczne treningowo:
+- masz bogate doświadczenie tatrzańskie (nazwy m.in. Rysy, Zawrat, Wrota Chaubińskiego,
+  Starobociański, Rakoń) oraz liczne bloki “WSPIN / obozy”.
+- w mapie są długie odcinki ~20–30 km (wielodniowe doliny/wyjazdy).
+
+Jak tego używać w planowaniu:
+- doświadczenie górskie jest mocne → można bezpiecznie używać trekkingu (w sezonie)
+  jako wsparcia “time on feet” pod ultra.
+- jednocześnie: start docelowy to Beskidy → specyfika to dłuższe, mniej techniczne
+  podbiegi/zbieg i długie jednostajne wysiłki.
+
+UWAGA: suma długości wszystkich linii w mapie nie jest “kilometrażem życia”.
+
+

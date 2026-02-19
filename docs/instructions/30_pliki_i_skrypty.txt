@@ -1,0 +1,48 @@
+================================================================================
+PLIKI I SKRYPTY — CO JEST CZYM
+================================================================================
+
+NAJWAŻNIEJSZE PLIKI:
+- `data/training_log.csv`     — dziennik treningów (tu dopisujesz / tu dopisuje asystent)
+- `data/planned_sessions.csv` — zaplanowane aktywności użytkownika (fixed constraints)
+- `plans/current_plan.json`   — aktualny plan (ŹRÓDŁO PRAWDY)
+- `plans/current_plan.html`   — podgląd planu (render)
+- `plans/current_plan.csv`    — plan w CSV
+- `plans/archive/`            — archiwum planów
+
+DOKUMENTACJA:
+- `docs/ATHLETE_CONTEXT.txt`         — kontekst (czytać przed planowaniem)
+- `docs/ATHLETE_DETAILED_PROFILE.txt`— profil szczegółowy (czytać przed planowaniem)
+- `docs/INSTRUKCJE.txt`              — indeks instrukcji
+- `docs/instructions/`               — moduły instrukcji
+
+SKRYPTY:
+- `node scripts/get_date.js`
+  - pokazuje aktualną datę i zakresy tygodnia
+- `node scripts/read_context.js`
+  - pokazuje datę + ostatnie treningi (i zwykle planowane aktywności)
+- `node scripts/render_plan.js`
+  - render `plans/current_plan.json` → `plans/current_plan.html`
+- `node scripts/render_plan_csv.js`
+  - render `plans/current_plan.json` → `plans/current_plan.csv`
+
+================================================================================
+GIT / WERSJONOWANIE (WORKFLOW)
+================================================================================
+
+ZAŁOŻENIE:
+- Repo na GitHub ma trzymać historię zmian planów i logów.
+
+REGUŁA:
+- Po KAŻDYM:
+  - update planu (JSON/HTML/CSV) lub dopisaniu archiwum w `plans/archive/`
+  - update `data/training_log.csv`
+  - wygenerowaniu nowego planu
+  → asystent automatycznie robi commit + push.
+
+MINIMUM:
+- `git add -A`
+- `git commit -m "update: plan/log YYYY-MM-DD"` (lub podobnie)
+- `git push`
+
+

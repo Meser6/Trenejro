@@ -1,0 +1,89 @@
+# KONTEKST ZAWODNIKA — SEZONOWOŚĆ (Kraków/Polska)
+
+## SEZONOWOŚĆ I PORA ROKU (Kraków, Polska)
+
+**⚠️ WAŻNE: Zawsze uwzględniaj porę roku przy planowaniu cross-trainingu i dostępnych aktywności!**
+
+### AKTYWNOŚCI CAŁOROCZNE (dostępne przez cały rok)
+- **Bieganie** - możliwe cały rok, ale z uwagami sezonowymi (zima: śliskie powierzchnie, lato: upały)
+- **Wspinaczka na ściance** - całoroczna (hala)
+- **Squash** - całoroczny (hala)
+- **Pływanie w basenach krytych** - całoroczne
+- **Siłownia/trening siłowy** - całoroczny
+
+### AKTYWNOŚCI SEZONOWE
+
+#### Zima (Grudzień - Luty)
+- **Kolarstwo szosowe/górskie:** ❌ NIE - zbyt zimno, możliwy śnieg/lód na drogach, niebezpieczne warunki
+- **Skitouring:** ✅ TAK - główny sezon na skitouring w Tatrach i wyższych partiach gór
+- **Wspinaczka skałkowa (na zewnątrz):** ❌ NIE - zbyt zimno, skały mokre/oblodzone
+- **Trekking w górach:** ⚠️ OGRANICZONY - tylko przy dobrych warunkach śniegowych, wymaga doświadczenia
+- **Pływanie w basenach otwartych:** ❌ NIE - zamknięte
+- **Pływanie w naturalnych zbiornikach:** ❌ NIE - zbyt zimno
+
+#### Wiosna (Marzec - Maj)
+- **Kolarstwo szosowe/górskie:** 
+  - Marzec: ⚠️ OGRANICZONY - zależy od pogody, często jeszcze zbyt zimno/mokro
+  - Kwiecień: ✅ TAK - zazwyczaj już możliwe
+  - Maj: ✅ TAK - idealne warunki
+- **Skitouring:** 
+  - Marzec: ✅ TAK - jeszcze możliwe w wyższych partiach gór
+  - Kwiecień: ⚠️ OGRANICZONY - tylko w najwyższych partiach
+  - Maj: ❌ NIE - brak śniegu
+- **Wspinaczka skałkowa (na zewnątrz):**
+  - Marzec: ❌ NIE - zbyt zimno
+  - Kwiecień: ⚠️ OGRANICZONY - zależy od pogody, często jeszcze zbyt zimno
+  - Maj: ✅ TAK - zazwyczaj już możliwe
+- **Trekking w górach:**
+  - Marzec: ⚠️ OGRANICZONY - zależy od warunków śniegowych
+  - Kwiecień: ✅ TAK - zazwyczaj już możliwe
+  - Maj: ✅ TAK - idealne warunki
+- **Pływanie w basenach otwartych:** 
+  - Marzec-Kwiecień: ❌ NIE - zamknięte
+  - Maj: ⚠️ OGRANICZONY - niektóre otwierają się pod koniec maja
+- **Pływanie w naturalnych zbiornikach:** ❌ NIE - zbyt zimno
+
+#### Lato (Czerwiec - Sierpień)
+- **Kolarstwo szosowe/górskie:** ✅ TAK - idealne warunki
+- **Skitouring:** ❌ NIE - brak śniegu
+- **Wspinaczka skałkowa (na zewnątrz):** ✅ TAK - idealne warunki
+- **Trekking w górach:** ✅ TAK - idealne warunki
+- **Pływanie w basenach otwartych:** ✅ TAK - wszystkie otwarte
+- **Pływanie w naturalnych zbiornikach:** ✅ TAK - możliwe (najcieplejsze miesiące)
+
+#### Jesień (Wrzesień - Listopad)
+- **Kolarstwo szosowe/górskie:**
+  - Wrzesień: ✅ TAK - idealne warunki
+  - Październik: ✅ TAK - zazwyczaj jeszcze możliwe
+  - Listopad: ⚠️ OGRANICZONY - zależy od pogody, często już zbyt zimno/mokro
+- **Skitouring:** ❌ NIE - brak śniegu (możliwe tylko w listopadzie w najwyższych partiach przy wczesnym śniegu)
+- **Wspinaczka skałkowa (na zewnątrz):**
+  - Wrzesień: ✅ TAK - idealne warunki
+  - Październik: ✅ TAK - zazwyczaj jeszcze możliwe
+  - Listopad: ⚠️ OGRANICZONY - zależy od pogody, często już zbyt zimno
+- **Trekking w górach:**
+  - Wrzesień: ✅ TAK - idealne warunki
+  - Październik: ✅ TAK - idealne warunki
+  - Listopad: ⚠️ OGRANICZONY - zależy od warunków pogodowych
+- **Pływanie w basenach otwartych:**
+  - Wrzesień: ✅ TAK - zazwyczaj jeszcze otwarte
+  - Październik: ⚠️ OGRANICZONY - niektóre zamykają się
+  - Listopad: ❌ NIE - zamknięte
+- **Pływanie w naturalnych zbiornikach:**
+  - Wrzesień: ⚠️ OGRANICZONY - zależy od temperatury wody
+  - Październik-Listopad: ❌ NIE - zbyt zimno
+
+### UWAGI SEZONOWE DLA BIEGANIA
+- **Zima:** Uwaga na śliskie powierzchnie, możliwe bieganie po śniegu, krótsze dni (treningi w ciągu dnia)
+- **Wiosna:** Idealne warunki, dłuższe dni
+- **Lato:** Uwaga na upały - treningi rano lub wieczorem, odpowiednie nawodnienie
+- **Jesień:** Idealne warunki, szczególnie wrzesień/październik
+
+### Zasady planowania sezonowego:
+1. **Sprawdź aktualną datę** - użyj `node scripts/get_date.js` aby poznać miesiąc i porę roku
+2. **Dopasuj cross-training** do dostępnych aktywności w danym sezonie
+3. **Uwzględnij pogodę** - w zimie więcej treningów w pomieszczeniach, w lecie uwaga na upały
+4. **Bieganie** - możliwe cały rok, ale dostosuj intensywność i czas do warunków
+5. **Alternatywy sezonowe** - jeśli kolarstwo nie jest dostępne (zima), zastąp innym cross-trainingiem (wspinaczka na ściance, squash, pływanie)
+
+

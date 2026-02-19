@@ -1,0 +1,12 @@
+# PROFIL SZCZEGÓŁOWY — PREFERENCJE + SEZONOWOŚĆ (Kuba)
+
+Ten plik jest **aliasem**, żeby nie dublować treści między “context” i “detailed”.
+
+## Canonical źródła
+- Preferencje + zasady planowania: `docs/athlete/context_60_preferencje_i_zasady_planowania.txt`
+- Sezonowość (szczegóły): `docs/athlete/context_50_sezonowosc_szczegoly.txt`
+
+## TL;DR (do szybkiego planu)
+- Preferuj trail i układ 3–4 biegi/tydz + cross‑training; preferencje są drugorzędne wobec zdrowia.
+- Zawsze sprawdź miesiąc (`node scripts/get_date.js`) i nie planuj “roweru w lutym / nart w czerwcu”.
+

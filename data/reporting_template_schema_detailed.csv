@@ -1,0 +1,16 @@
+field,type
+date,YYYY-MM-DD
+sport,run/swim/ski/strength/bike/etc.
+session_type,easy/trail/long/intervals/hills/recovery/etc.
+duration_min,number
+distance_km,number
+elevation_gain_m,number (optional)
+avg_pace,mm:ss per km (optional)
+RPE_1_10,number
+,
+surface,treadmill/trail/road/mixed
+knee_left_pain_during,0–10 during
+knee_left_pain_next_morning,0–10 next_morning
+knee_right_pain_during,0–10 during
+knee_right_pain_next_morning,0–10 next_morning
+notes,free text

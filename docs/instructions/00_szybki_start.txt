@@ -1,0 +1,24 @@
+================================================================================
+SZYBKI START — SYSTEM PLANOWANIA TRENINGÓW
+================================================================================
+
+TEN SYSTEM MA 2 GŁÓWNE OPERACJE:
+
+1) Po treningu → LOGUJ TRENING do `data/training_log.csv`
+   - Najwygodniej: opisz trening w czacie (PL), a asystent go sformatuje i dopisze.
+   - Szczegóły: `docs/instructions/10_logowanie_treningow.txt`
+
+2) Przed nowym planem → POPROŚ O PLAN w nowym czacie
+   - Napisz: „Daj mi plan” / „Wygeneruj plan”
+   - Asystent najpierw czyta kontekst i planned sessions, potem aktualizuje plan.
+   - Szczegóły: `docs/instructions/20_generowanie_planu.txt`
+
+GDZIE SPRAWDZIĆ WYNIK:
+- Podgląd: `plans/current_plan.html`
+- Źródło danych: `plans/current_plan.json`
+
+TIP:
+- Jeśli masz już zaplanowane aktywności (np. skitury), wpisz je w `data/planned_sessions.csv`.
+  System potraktuje je jako „fixed constraints” w najbliższych 7 dniach.
+
+

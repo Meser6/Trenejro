@@ -1,0 +1,11 @@
+# KONTEKST ZAWODNIKA — ZDROWIE / OGRANICZENIA (Kuba)
+
+Ten plik jest **aliasem**, żeby nie dublować treści między “context” i “detailed”.
+
+## TL;DR (najważniejsze ograniczenia)
+- **Kolana (bocznie, ITB‑podobne)**: asfalt zwykle prowokuje; trail zwykle lepiej tolerowany.
+- **Kostka prawa**: historia zerwania więzadeł → warto pamiętać o stabilności/propriocepcji.
+
+## Canonical źródło (szczegóły + red flags)
+- `docs/athlete/detailed_20_kontuzje_ograniczenia_i_red_flags.txt`
+

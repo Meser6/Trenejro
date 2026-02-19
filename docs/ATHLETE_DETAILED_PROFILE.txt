@@ -1,0 +1,38 @@
+================================================================================
+PROFIL ZAWODNIKA (SZCZEGÓŁOWY, DO PLANOWANIA) — Kuba (INDEX)
+================================================================================
+
+Ten plik jest docelowym, trwałym “mózgiem kontekstu”, ale teraz działa jako **indeks**
+(szybkie streszczenie + linki do modułów w `docs/athlete/`).
+
+Powstał jednorazowo na bazie:
+- `docs/ATHLETE_CONTEXT.txt` (profil, kontuzje, preferencje, sezonowość)
+- eksportu Strava `data/activities.csv` (wnioski + statystyki) — **plik źródłowy usunięty po analizie**
+- mapy górskiej `data/Tatry.kmz` (wnioski o doświadczeniu górskim) — **plik źródłowy usunięty po analizie**
+
+================================================================================
+## Co czytać przed planem tygodnia
+
+Minimum (szybko):
+- `docs/athlete/detailed_00_szybkie_streszczenie.txt`
+- `docs/athlete/detailed_20_kontuzje_ograniczenia_i_red_flags.txt`
+- `docs/athlete/context_60_preferencje_i_zasady_planowania.txt`
+- `docs/athlete/context_50_sezonowosc_szczegoly.txt`
+
+Pełniej (gdy układasz większy blok / aktualizujesz strategię):
+- `docs/athlete/detailed_10_dane_bazowe_i_cel.txt`
+- `docs/athlete/detailed_40_strava_i_tatry.txt`
+- `docs/athlete/detailed_50_zasady_planowania_i_braki.txt`
+
+================================================================================
+## Moduły (pełna lista)
+
+0) `docs/athlete/detailed_00_szybkie_streszczenie.txt`
+1) `docs/athlete/detailed_10_dane_bazowe_i_cel.txt`
+2) `docs/athlete/detailed_20_kontuzje_ograniczenia_i_red_flags.txt`
+3) `docs/athlete/context_60_preferencje_i_zasady_planowania.txt`
+4) `docs/athlete/context_50_sezonowosc_szczegoly.txt`
+5) `docs/athlete/detailed_40_strava_i_tatry.txt`
+6) `docs/athlete/detailed_50_zasady_planowania_i_braki.txt`
+
+

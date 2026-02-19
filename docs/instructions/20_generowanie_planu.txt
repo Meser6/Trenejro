@@ -1,0 +1,43 @@
+================================================================================
+GENEROWANIE / AKTUALIZACJA PLANU (TYDZIEŃ ROLLING)
+================================================================================
+
+JAK POPROSIĆ O PLAN:
+- W nowym czacie napisz: „Daj mi plan” / „Wygeneruj plan”
+
+ZAKRES PLANU (OBOWIĄZKOWO):
+- Plan jest zawsze na 7 dni „rolling”:
+  - `plan.week.start = dzisiaj`
+  - `plan.week.end = dzisiaj + 6 dni`
+
+CO ASYSTENT MUSI ZROBIĆ PRZED UŁOŻENIEM PLANU:
+- Uruchomić `node scripts/read_context.js` (data + ostatnie treningi)
+- Przeczytać:
+  - `docs/ATHLETE_CONTEXT.txt`
+  - `docs/ATHLETE_DETAILED_PROFILE.txt`
+  - `data/training_log.csv`
+- Sprawdzić `data/planned_sessions.csv`
+  - odfiltrować wiersze, których `date` wpada w zakres `plan.week.start → plan.week.end`
+  - traktować je jako „fixed constraints”
+  - jeśli aktywność jest ciężka (np. skitury z dużym przewyższeniem) → dostosować biegi
+    (objętość/akcenty/długi bieg) i dodać regenerację (kolana/Achilles)
+
+CO POWSTAJE (PLIKI WYJŚCIOWE):
+- `plans/current_plan.json` — źródło prawdy
+- `plans/current_plan.html` — podgląd (render)
+- `plans/current_plan.csv` — CSV planu
+
+RENDER:
+- `node scripts/render_plan.js` (JSON → HTML)
+- `node scripts/render_plan_csv.js` (JSON → CSV)
+
+ARCHIWIZACJA (PO KAŻDYM WYGNEROWANIU / ISTOTNEJ ZMIANIE):
+- `plans/archive/YYYY-MM-DD_plan.json` (data = start tygodnia)
+- `plans/archive/YYYY-MM-DD_plan.html`
+- `plans/archive/YYYY-MM-DD_plan.csv`
+
+UWAGI:
+- Jeśli `data/planned_sessions.csv` koliduje z planem → plan zmieniamy, a w `notes` wyjaśniamy decyzję.
+- Cross-training dobieramy sezonowo (sprawdź miesiąc; `node scripts/get_date.js`).
+
+

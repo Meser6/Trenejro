@@ -1,0 +1,80 @@
+# KONTEKST ZAWODNIKA — SYSTEM (PLIKI/SKRYPTY) + CHECKLISTA NOWEGO CZATU
+
+## PLIKI W SYSTEMIE
+
+### Struktura folderów
+```
+trener/
+├── data/                          - Dane treningowe
+│   ├── training_log.csv          - **GŁÓWNY DZIENNIK TRENINGÓW** (tutaj dopisujesz treningi)
+│   └── reporting_template_schema_detailed.csv - schemat kolumn (referencja)
+├── plans/                         - Plany treningowe
+│   ├── current_plan.json         - aktualny plan na bieżący tydzień (źródło)
+│   ├── current_plan.html         - aktualny plan na bieżący tydzień (podgląd)
+│   └── archive/                   - archiwum planów (YYYY-MM-DD_plan.(json|html|csv))
+├── scripts/                       - Skrypty pomocnicze
+│   ├── get_date.js               - odczyt aktualnej daty i zakresów tygodnia
+│   └── read_context.js            - odczyt daty i ostatnich treningów
+│   └── render_plan.js             - render JSON → HTML (podgląd planu)
+└── docs/                          - Dokumentacja
+    ├── ATHLETE_CONTEXT.txt        - indeks kontekstu (ten “entry point”)
+    ├── ATHLETE_DETAILED_PROFILE.txt - indeks profilu szczegółowego
+    ├── athlete/                   - moduły kontekstu/profilu (posortowane)
+    ├── README.txt                 - dokumentacja systemu
+    ├── INSTRUKCJE.txt             - instrukcje użycia (indeks)
+    └── instructions/              - instrukcje modularne
+        ├── 00_szybki_start.txt
+        ├── 10_logowanie_treningow.txt
+        ├── 20_generowanie_planu.txt
+        └── 30_pliki_i_skrypty.txt
+```
+
+---
+
+## INSTRUKCJE DLA NOWYCH CZATÓW
+
+1. **Uruchom skrypt do odczytu daty i kontekstu:**
+   ```bash
+   node scripts/read_context.js
+   ```
+   To pokaże aktualną datę, zakres tygodnia i ostatnie treningi.
+
+2. **Przeczytaj** `docs/ATHLETE_CONTEXT.txt` (indeks) + moduły w `docs/athlete/`
+3. **Przeczytaj** `docs/ATHLETE_DETAILED_PROFILE.txt` (indeks) + moduły w `docs/athlete/`
+4. **Przeczytaj** `data/training_log.csv` - sprawdź ostatnie treningi
+5. **Sprawdź aktualny plan** (jeśli istnieje):
+   - podgląd: `plans/current_plan.html`
+   - źródło: `plans/current_plan.json`
+6. **Wygeneruj plan na następny tydzień** na podstawie:
+   - Ostatnich treningów z data/training_log.csv
+   - Zaplanowanych aktywności z data/planned_sessions.csv (jeśli istnieją)
+     - **Najpierw sprawdź, czy obejmują zakres tygodnia planu** (plan.week.start → plan.week.end)
+     - Sesje z tego zakresu traktuj jako **fixed constraints** (plan pod nie układasz, a nie odwrotnie)
+     - Jeśli planowana aktywność jest ciężka (np. skitury z dużym przewyższeniem) → zmniejsz bieganie/akcenty i dodaj regenerację
+   - Zgłoszonych dolegliwości
+   - Postępów i adaptacji
+   - Celu (50km we wrześniu/październiku 2026)
+   - **Aktualnej daty i pory roku** (użyj `node scripts/get_date.js` - sprawdź miesiąc i dostosuj cross-training)
+   - **Sezonowości aktywności** - np. w lutym NIE planuj kolarstwa, w czerwcu NIE planuj nart
+7. **Zapisz plan jako JSON** w `plans/current_plan.json` (nadpisz poprzedni)
+8. **Wyrenderuj podgląd HTML**: `node scripts/render_plan.js`
+9. **Wyrenderuj CSV planu**: `node scripts/render_plan_csv.js`
+10. **Zapisz plan w archiwum**:
+   - `plans/archive/YYYY-MM-DD_plan.json`
+   - `plans/archive/YYYY-MM-DD_plan.html`
+   - `plans/archive/YYYY-MM-DD_plan.csv`
+
+---
+
+## SKRYPTY POMOCNICZE
+
+- `scripts/get_date.js` - zwraca aktualną datę, datę początku/końca tygodnia w JSON
+- `scripts/read_context.js` - odczytuje datę i pokazuje ostatnie treningi
+- `scripts/render_plan.js` - renderuje `plans/current_plan.json` → `plans/current_plan.html`
+
+---
+
+## OSTATNIA AKTUALIZACJA (historycznie)
+Data: 2026-02-16 (dodano szczegółową sezonowość wszystkich aktywności z dokładnym określeniem dostępności w każdym miesiącu)
+
+
