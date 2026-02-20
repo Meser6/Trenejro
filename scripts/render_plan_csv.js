@@ -32,6 +32,37 @@ function toCsv(rows) {
   return rows.map((r) => r.map(csvEscape).join(",")).join("\n") + "\n";
 }
 
+function toNumber(v) {
+  if (v === null || v === undefined || v === "") return null;
+  const n = Number(v);
+  return Number.isFinite(n) ? n : null;
+}
+
+function formatPaceMinPerKm(durationMin, distanceKm) {
+  const dur = toNumber(durationMin);
+  const dist = toNumber(distanceKm);
+  if (!dur || !dist || dur <= 0 || dist <= 0) return "";
+  const paceMin = dur / dist;
+  if (!Number.isFinite(paceMin) || paceMin <= 0) return "";
+  let mm = Math.floor(paceMin);
+  let ss = Math.round((paceMin - mm) * 60);
+  if (ss === 60) {
+    mm += 1;
+    ss = 0;
+  }
+  return `${String(mm).padStart(2, "0")}:${String(ss).padStart(2, "0")}`;
+}
+
+function formatSpeedKmH(durationMin, distanceKm) {
+  const dur = toNumber(durationMin);
+  const dist = toNumber(distanceKm);
+  if (!dur || !dist || dur <= 0 || dist <= 0) return "";
+  const hours = dur / 60;
+  const speed = dist / hours;
+  if (!Number.isFinite(speed) || speed <= 0) return "";
+  return speed.toFixed(1);
+}
+
 function main() {
   if (!fs.existsSync(inPath)) {
     console.error(`Missing input JSON: ${inPath}`);
@@ -51,6 +82,8 @@ function main() {
     "surface",
     "duration_min",
     "distance_km",
+    "pace_min_per_km",
+    "speed_km_h",
     "elevation_gain_m",
     "intensity",
     "rpe",
@@ -63,6 +96,8 @@ function main() {
 
   (plan.days || []).forEach((d) => {
     (d.sessions || []).forEach((s) => {
+      const pace = formatPaceMinPerKm(s.duration_min, s.distance_km);
+      const speed = formatSpeedKmH(s.duration_min, s.distance_km);
       rows.push([
         weekStart,
         weekEnd,
@@ -74,6 +109,8 @@ function main() {
         s.surface || "",
         s.duration_min ?? "",
         s.distance_km ?? "",
+        pace,
+        speed,
         s.elevation_gain_m ?? "",
         s.intensity || "",
         s.rpe ?? "",
