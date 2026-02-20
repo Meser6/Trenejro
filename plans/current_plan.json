@@ -4,17 +4,18 @@
   "athlete": { "name": "Kuba" },
   "goal": { "event": "50 km ultra trail (wrz/paź 2026)" },
   "context": { "season": "ZIMA", "location": "Kraków" },
-  "week": { "start": "2026-02-26", "end": "2026-03-04" },
+  "week": { "start": "2026-02-23", "end": "2026-03-01" },
   "goals": [
-    "Kolejny tydzień po skiturach + rowerze ~70 km (25.02): stabilizacja kolan i spokojny powrót do 3 biegów.",
+    "Następny tydzień (pon–ndz). Po skiturach: utrzymujemy obciążenie biegowe ostrożnie + robimy tlen nisko-udarowo.",
+    "Fixed: środa rower ~70 km (25.02) — reszta tygodnia pod to (kolana/zmęczenie).",
     "Priorytet: trail/bieżnia zamiast asfaltu; zero agresywnych zbiegów przy zmęczeniu.",
     "Zima: tlen nisko-udarowo (basen/ścianka) + krótka siła/stabilizacja bez DOMS."
   ],
   "summary": {
     "runs": 3,
-    "total_distance_km": 32.5,
-    "total_elevation_gain_m": 400,
-    "cross_training": "basen (easy) + siła/stabilizacja + opcjonalnie ścianka",
+    "total_distance_km": 32.0,
+    "total_elevation_gain_m": 300,
+    "cross_training": "rower (fixed) + basen (easy) + siła/stabilizacja + opcjonalnie ścianka",
     "rest_days": 1
   },
   "monitoring": [
@@ -23,6 +24,58 @@
     "Po każdym biegu: ból kolan (w trakcie + następnego ranka, L/P) + ból Achillesa (następnego ranka) + RPE + nawierzchnia"
   ],
   "days": [
+    {
+      "date": "2026-02-23",
+      "day_name": "Poniedziałek",
+      "day_short": "pon",
+      "sessions": [
+        {
+          "title": "Siła + stabilizacja (krótko, bez DOMS)",
+          "sport": "strength",
+          "session_type": "strength",
+          "duration_min": 35,
+          "intensity": "Lekko",
+          "notes": "30–40': split squat (kontrola kolana), RDL na jednej nodze lub klasyczny lekki, pośladek (bridge/hip thrust), core. Łydki: 2×45–60\" izo (proste + ugięte). Ma zostać zapas na wt."
+        }
+      ]
+    },
+    {
+      "date": "2026-02-24",
+      "day_name": "Wtorek",
+      "day_short": "wt",
+      "sessions": [
+        {
+          "title": "Bieg EASY + opcjonalnie przebieżki",
+          "sport": "run",
+          "session_type": "easy",
+          "surface": "mixed",
+          "duration_min": 55,
+          "distance_km": 10.0,
+          "elevation_gain_m": 0,
+          "intensity": "Easy",
+          "rpe": 4,
+          "notes": "50–60' easy. Jeśli warunki śliskie → bieżnia. Jeśli kolana/Achilles 0–1/10 i czujesz luz → na końcu 4×20\" luźne przebieżki (pełny luz, nie sprint). Jeśli jakikolwiek sygnał z kolan → bez przebieżek."
+        }
+      ]
+    },
+    {
+      "date": "2026-02-25",
+      "day_name": "Środa",
+      "day_short": "śr",
+      "sessions": [
+        {
+          "title": "Rower ~70 km (tlen, ładna pogoda)",
+          "sport": "bike",
+          "session_type": "easy",
+          "surface": "road",
+          "duration_min": 180,
+          "distance_km": 70.0,
+          "intensity": "Tlen / Z2 (bez ścigania)",
+          "rpe": 4,
+          "notes": "Fixed constraint (planned_sessions). 70 km spokojnie (Z2), równa moc/tempo, bez szarpania na podjazdach. Kadencja raczej 85–95, unikaj ciężkich przełożeń (kolana). Paliwo: jeśli >2h to 30–60 g węgli/h + regularne picie. Jeśli kolana w trakcie >2/10 lub narasta dyskomfort → skróć i wróć spokojnie."
+        }
+      ]
+    },
     {
       "date": "2026-02-26",
       "day_name": "Czwartek",
@@ -37,7 +90,7 @@
           "distance_km": 1.2,
           "intensity": "Lekko (tlen)",
           "rpe": 2,
-          "notes": "40' luźno, technika + równy oddech. Po: 10–15' mobilność biodro/łydka/stopa + 2×45–60\" izo łydki (proste + ugięte). Sauna opcjonalnie, jeśli jesteś dobrze nawodniony."
+          "notes": "40' luźno, technika + równy oddech. Po: 10–15' mobilność biodro/łydka/stopa + 2×45–60\" izo łydki (proste + ugięte)."
         }
       ]
     },
@@ -66,13 +119,13 @@
       "day_short": "sob",
       "sessions": [
         {
-          "title": "Odpoczynek + krótka mobilność",
+          "title": "Odpoczynek / ścianka bardzo lekko (opcjonalnie)",
           "sport": "rest",
           "session_type": "rest",
           "duration_min": 20,
           "intensity": "Bardzo lekko",
           "rpe": 1,
-          "notes": "Opcja: 20–30' spacer + 10' mobilność. Dla kostki: 5' propriocepcja (stanie na jednej nodze / poduszka sensomotoryczna)."
+          "notes": "Opcja A: odpoczynek + 20–30' spacer + 10' mobilność. Opcja B: ścianka 60–90' bardzo luźno (bez zajechania)."
         }
       ]
     },
@@ -86,64 +139,12 @@
           "sport": "run",
           "session_type": "easy",
           "surface": "trail",
-          "duration_min": 90,
-          "distance_km": 14.0,
-          "elevation_gain_m": 400,
+          "duration_min": 85,
+          "distance_km": 13.5,
+          "elevation_gain_m": 300,
           "intensity": "Easy (tlen)",
           "rpe": 4,
-          "notes": "75–95' w spokojnym tlenie. Pilnuj kroku na zbiegach (krótszy, miękko). Jeśli warunki zimowe/ślisko → alternatywa: bieżnia 80–90' easy (1–3% nachylenia przez środek). Paliwo: przy 90' weź 20–30 g węgli + pij regularnie."
-        }
-      ]
-    },
-    {
-      "date": "2026-03-02",
-      "day_name": "Poniedziałek",
-      "day_short": "pon",
-      "sessions": [
-        {
-          "title": "Siła + stabilizacja (krótko, bez DOMS)",
-          "sport": "strength",
-          "session_type": "strength",
-          "duration_min": 35,
-          "intensity": "Lekko",
-          "notes": "30–40': split squat (kontrola kolana), RDL na jednej nodze lub klasyczny lekki, pośladek (bridge/hip thrust), core. Łydki: 2×45–60\" izo (proste + ugięte). Ma zostać zapas na wt."
-        }
-      ]
-    },
-    {
-      "date": "2026-03-03",
-      "day_name": "Wtorek",
-      "day_short": "wt",
-      "sessions": [
-        {
-          "title": "Basen EASY / ścianka (luźno)",
-          "sport": "swim",
-          "session_type": "easy",
-          "surface": "pool_indoor",
-          "duration_min": 45,
-          "distance_km": 1.4,
-          "intensity": "Lekko (regeneracja tlenowa)",
-          "rpe": 2,
-          "notes": "45' luźno. Alternatywa (jeśli nie basen): ścianka 60–90' bardzo lekko (bez 'zajechania' przedramion)."
-        }
-      ]
-    },
-    {
-      "date": "2026-03-04",
-      "day_name": "Środa",
-      "day_short": "śr",
-      "sessions": [
-        {
-          "title": "Bieg EASY + opcjonalnie przebieżki",
-          "sport": "run",
-          "session_type": "easy",
-          "surface": "mixed",
-          "duration_min": 60,
-          "distance_km": 10.0,
-          "elevation_gain_m": 0,
-          "intensity": "Easy",
-          "rpe": 4,
-          "notes": "55–65' easy. Jeśli warunki śliskie → bieżnia. Jeśli kolana/Achilles 0–1/10 i czujesz luz → na końcu 4×20\" luźne przebieżki (pełny luz, nie sprint). Jeśli jakikolwiek sygnał z kolan → bez przebieżek."
+          "notes": "75–90' w spokojnym tlenie. Pilnuj kroku na zbiegach (krótszy, miękko). Jeśli warunki zimowe/ślisko → alternatywa: bieżnia 80–85' easy (1–3% nachylenia przez środek)."
         }
       ]
     }
