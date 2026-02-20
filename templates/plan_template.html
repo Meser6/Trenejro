@@ -248,7 +248,7 @@
       }
       .calItems { display: grid; gap: 6px; }
       .calItem {
-        border-left: 3px solid rgba(252, 76, 2, 0.55);
+        border-left: 3px solid var(--sportColor, rgba(17,17,17,0.35));
         padding-left: 8px;
       }
       .calItem .t { font-weight: 900; font-size: 12px; }
@@ -725,6 +725,45 @@
         return map[x] || s;
       }
 
+      function sportColor(sport) {
+        const x = String(sport || '').toLowerCase().trim();
+        // Requested mapping:
+        // squash: red, run: green, trekking/hike: pink, ski/skitouring: dark blue,
+        // paragliding + GH: purple, climbing: light blue, other: gray.
+        const RED = '#ef4444';
+        const GREEN = '#16a34a';
+        const PINK = '#ec4899';
+        const DARK_BLUE = '#1e3a8a';
+        const PURPLE = '#7c3aed';
+        const LIGHT_BLUE = '#38bdf8';
+        const GRAY = '#6b7280';
+
+        if (!x) return GRAY;
+
+        if (x === 'squash') return RED;
+        if (x === 'run' || x === 'running') return GREEN;
+
+        // górski trekking / hike
+        if (x === 'hike' || x === 'trek' || x === 'trekking' || x === 'mountain_hike') return PINK;
+
+        // narty / skitury
+        if (x === 'ski' || x === 'skitouring' || x === 'skitour' || x === 'ski_touring') return DARK_BLUE;
+
+        // paralotnia / ground handling
+        if (x === 'paragliding' || x === 'ground_handling' || x === 'gh') return PURPLE;
+
+        // wspinaczka (ścianka/skała)
+        if (
+          x === 'climb' ||
+          x === 'climbing' ||
+          x === 'climbing_wall' ||
+          x === 'bouldering' ||
+          x === 'rock_climbing'
+        ) return LIGHT_BLUE;
+
+        return GRAY;
+      }
+
       function compactLine(r) {
         const parts = [];
         parts.push(shortSport(r.sport));
@@ -807,6 +846,7 @@
                 const x = compactLine(r);
                 const it = document.createElement('div');
                 it.className = 'calItem';
+                it.style.setProperty('--sportColor', sportColor(r.sport));
                 it.innerHTML = `
                   <div class="t">${x.t}</div>
                   ${x.m ? `<div class="m">${x.m}</div>` : ``}
