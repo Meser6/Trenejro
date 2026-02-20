@@ -253,7 +253,7 @@
         </div>
         <div class="meta">
           <div id="plan-meta"></div>
-          <div>Generated: <span id="generated-at">2026-02-20 17:44:32Z</span></div>
+          <div>Generated: <span id="generated-at">2026-02-20 10:18:05Z</span></div>
         </div>
       </div>
 
@@ -358,7 +358,7 @@
 
     <script id="plan-data" type="application/json">{
   "version": "plan.schema.v1",
-  "title": "Plan treningowy — 7 dni (rolling)",
+  "title": "Plan treningowy — 7 dni",
   "athlete": {
     "name": "Kuba"
   },
@@ -370,21 +370,20 @@
     "location": "Kraków"
   },
   "week": {
-    "start": "2026-02-20",
-    "end": "2026-02-26"
+    "start": "2026-02-19",
+    "end": "2026-02-25"
   },
   "goals": [
-    "Rolling 7 dni (dzisiaj + 6): 2026-02-20 → 2026-02-26.",
-    "Po dużym bodźcu (skitury 2026-02-18) trzymamy bieganie ostrożnie: 3 biegi easy, bez agresywnych zbiegów i bez asfaltowej monotonii.",
-    "Fixed constraints: 2026-02-20 squash (60') oraz 2026-02-25 rower ~70 km (tlen/Z2). Reszta tygodnia ustawiona pod kolana i regenerację.",
-    "Zima: więcej tlen nisko-udarowo (basen/siła/stabilizacja), a bieganie na trail/bieżni jeśli ślisko."
+    "Rolling 7 dni od dziś. Po wczorajszych skiturach (7h, +1530 m, RPE 8): priorytet regeneracja + bezpieczny powrót do biegania (tylko easy).",
+    "Bezpieczeństwo kolan: 0–2/10 OK; jeśli narasta albo poranek gorszy → skracamy / zamieniamy na low-impact.",
+    "Zima: utrzymujemy tlen nisko-udarowo (basen / ścianka) + krótka siła/stabilizacja bez DOMS."
   ],
   "summary": {
-    "runs": 3,
-    "total_distance_km": 29,
-    "total_elevation_gain_m": 250,
-    "cross_training": "squash (fixed) + rower (fixed) + basen (easy) + siła/stabilizacja",
-    "rest_days": 1
+    "runs": 2,
+    "total_distance_km": 18,
+    "total_elevation_gain_m": 0,
+    "cross_training": "regeneracja + squash (fixed) + basen/ścianka (easy) + siła/stabilizacja + rower (długi tlen)",
+    "rest_days": 0
   },
   "monitoring": [
     "Kolana: 0–2/10 i nie narasta → OK; 3/10 lub narasta → skróć/marsz; >3/10 lub gorszy poranek → bez biegania, low-impact",
@@ -393,19 +392,37 @@
   ],
   "days": [
     {
+      "date": "2026-02-19",
+      "day_name": "Czwartek",
+      "day_short": "czw",
+      "sessions": [
+        {
+          "title": "Basen EASY (zrobione) + mobilność",
+          "sport": "swim",
+          "session_type": "easy",
+          "surface": "pool_indoor",
+          "duration_min": 30,
+          "distance_km": 1,
+          "intensity": "Bardzo lekko",
+          "rpe": 1,
+          "notes": "Zrobione: 1000 m / 30 min, RPE 1. Ból 0/10 (także następnego ranka). Dołóż dziś 10–15' mobilność biodro/łydka/stopa + krótka praca stóp/propriocepcja (prawa kostka). Sauna opcjonalnie (krótko), jeśli jesteś dobrze nawodniony."
+        }
+      ]
+    },
+    {
       "date": "2026-02-20",
       "day_name": "Piątek",
       "day_short": "pt",
       "sessions": [
         {
-          "title": "Squash (fixed)",
+          "title": "Squash (plan)",
           "sport": "squash",
           "session_type": "moderate",
           "surface": "indoor",
           "duration_min": 60,
-          "intensity": "Umiarkowanie (technicznie, bez wchodzenia na max)",
+          "intensity": "Umiarkowanie",
           "rpe": 6,
-          "notes": "Fixed z planned_sessions. Po skiturach: gra bardziej techniczna, kontrola ruchu, bez maksymalnych zrywów jeśli kolana dają sygnały. Po: 8–10' mobilność biodro/łydka/stopa."
+          "notes": "Fixed constraint (planned_sessions). Po skiturach: priorytet kolana. Gra bardziej techniczna, bez wchodzenia na max intensywność. Jeśli kolana w rozgrzewce >2/10 albo czujesz \"ciągnięcie\" bocznie → skróć do 30–40' albo zamień na basen/spacer."
         }
       ]
     },
@@ -415,15 +432,16 @@
       "day_short": "sob",
       "sessions": [
         {
-          "title": "Basen EASY + mobilność",
-          "sport": "swim",
+          "title": "Bieg EASY",
+          "sport": "run",
           "session_type": "easy",
-          "surface": "pool_indoor",
-          "duration_min": 40,
-          "distance_km": 1.2,
-          "intensity": "Lekko (tlen)",
-          "rpe": 2,
-          "notes": "40' luźno, technika + równy oddech. Po: 10–15' mobilność + 2×45–60\" izo łydki (proste + ugięte)."
+          "surface": "treadmill",
+          "duration_min": 45,
+          "distance_km": 8,
+          "elevation_gain_m": 0,
+          "intensity": "Easy",
+          "rpe": 3,
+          "notes": "40–45' luźno (nachylenie 0–1%). Zero akcentów. Jeśli po squashu czujesz „szarpnięcia” kolan: skróć do 30–35'. Jeśli kolana podczas dobiją do 3/10 albo narastają → przejdź w marsz i kończymy."
         }
       ]
     },
@@ -433,16 +451,13 @@
       "day_short": "ndz",
       "sessions": [
         {
-          "title": "Długi bieg EASY (trail/bieżnia, bez agresywnych zbiegów)",
-          "sport": "run",
+          "title": "Basen EASY (regeneracja tlenowa)",
+          "sport": "swim",
           "session_type": "easy",
-          "surface": "trail",
-          "duration_min": 75,
-          "distance_km": 12,
-          "elevation_gain_m": 250,
-          "intensity": "Easy (tlen)",
-          "rpe": 4,
-          "notes": "70–80' w spokojnym tlenie. Na zbiegach krótszy krok, miękko, żadnego „latania”. Jeśli ślisko/oblodzenie → bieżnia 70–75' easy (1–3% nachylenia przez środek)."
+          "surface": "pool_indoor",
+          "duration_min": 45,
+          "intensity": "Lekko",
+          "notes": "40–50' luźno (RPE 2–3). Opcja zamiast basenu: ścianka 60–90' bardzo luźno. Sauna opcjonalnie."
         }
       ]
     },
@@ -457,8 +472,7 @@
           "session_type": "strength",
           "duration_min": 35,
           "intensity": "Lekko",
-          "rpe": 3,
-          "notes": "30–40': split squat (kontrola kolana), RDL na jednej nodze lub klasyczny lekki, pośladek (bridge/hip thrust), core. Łydki: 2×45–60\" izo (proste + ugięte). Ma zostać zapas na wt/śr."
+          "notes": "30–40': split squat (kontrola kolana), RDL na jednej nodze lub klasyczny lekki, pośladek (bridge/hip thrust), core. Łydki: 2×45–60\" izo (proste + ugięte). Ma zostać zapas na wt."
         }
       ]
     },
@@ -472,12 +486,12 @@
           "sport": "run",
           "session_type": "easy",
           "surface": "mixed",
-          "duration_min": 50,
-          "distance_km": 9,
+          "duration_min": 55,
+          "distance_km": 10,
           "elevation_gain_m": 0,
           "intensity": "Easy",
           "rpe": 4,
-          "notes": "45–55' easy. Jeśli warunki śliskie → bieżnia. Jeśli kolana/Achilles 0–1/10 i czujesz luz → na końcu 4×20\" luźne przebieżki (pełny luz, nie sprint). Jeśli jakikolwiek sygnał z kolan → bez przebieżek."
+          "notes": "50–60' easy. Jeśli warunki śliskie → bieżnia. Jeśli kolana/Achilles 0–1/10 i czujesz luz → na końcu 4×20\" luźne przebieżki (pełny luz, nie sprint). Jeśli jakikolwiek sygnał z kolan → bez przebieżek."
         }
       ]
     },
@@ -487,7 +501,7 @@
       "day_short": "śr",
       "sessions": [
         {
-          "title": "Rower ~70 km (fixed) — tlen/Z2",
+          "title": "Rower ~70 km (tlen, ładna pogoda)",
           "sport": "bike",
           "session_type": "easy",
           "surface": "road",
@@ -495,26 +509,7 @@
           "distance_km": 70,
           "intensity": "Tlen / Z2 (bez ścigania)",
           "rpe": 4,
-          "notes": "Fixed z planned_sessions. 70 km spokojnie (Z2), równa moc/tempo, bez szarpania na podjazdach. Kadencja 85–95, unikaj ciężkich przełożeń (kolana). Paliwo: jeśli >2h to 30–60 g węgli/h + regularne picie. Jeśli kolana w trakcie >2/10 lub narasta dyskomfort → skróć i wróć spokojnie."
-        }
-      ]
-    },
-    {
-      "date": "2026-02-26",
-      "day_name": "Czwartek",
-      "day_short": "czw",
-      "sessions": [
-        {
-          "title": "Bieg EASY (regeneracyjnie, preferuj trail/bieżnię)",
-          "sport": "run",
-          "session_type": "easy",
-          "surface": "mixed",
-          "duration_min": 45,
-          "distance_km": 8,
-          "elevation_gain_m": 0,
-          "intensity": "Easy",
-          "rpe": 3,
-          "notes": "40–50' luźno po rowerze. Jeśli ślisko → bieżnia (nachylenie 0–1%). Jeśli kolana >2/10 albo narasta dyskomfort → skróć do 25–35' albo zamień na 30–40' basenu easy."
+          "notes": "70 km spokojnie (Z2), równa moc/tempo, bez szarpania na podjazdach. Kadencja raczej 85–95, unikaj ciężkich przełożeń (kolana). Paliwo: jeśli >2h to 30–60 g węgli/h + regularne picie; weź coś na wszelki wypadek. Jeśli kolana w trakcie >2/10 lub narasta dyskomfort → skróć i wróć spokojnie."
         }
       ]
     }
@@ -705,29 +700,12 @@
         "knee_right_pain_next_morning": "0",
         "achilles_pain": "0",
         "notes": "Basen: 1000 m / 30 min. Zmęczenie 1/10. Ból 0/10; następnego ranka 0/10."
-      },
-      {
-        "date": "2026-02-20",
-        "sport": "squash",
-        "session_type": "moderate",
-        "surface": "indoor",
-        "duration_min": "60",
-        "distance_km": "",
-        "elevation_gain_m": "",
-        "avg_pace": "",
-        "rpe": "6",
-        "knee_left_pain_during": "0",
-        "knee_left_pain_next_morning": "0",
-        "knee_right_pain_during": "0",
-        "knee_right_pain_next_morning": "0",
-        "achilles_pain": "0",
-        "notes": "Squash: 1h, intensywność 6/10. Ból kolan 0/10."
       }
     ]
   },
   "files": {
-    "json": "plans/current_plan.json",
-    "html": "index.html"
+    "json": "plans/archive/2026-02-19_plan.json",
+    "html": "plans/archive/2026-02-19_plan.html"
   }
 }</script>
     <script>

@@ -45,7 +45,7 @@ trener/
 5. **Sprawdź aktualny plan** (jeśli istnieje):
    - podgląd: `index.html`
    - źródło: `plans/current_plan.json`
-6. **Wygeneruj plan na następny tydzień** na podstawie:
+6. **Wygeneruj plan** (zawsze: dzisiaj + 6 dni; także gdy użytkownik mówi „na następny tydzień”) na podstawie:
    - Ostatnich treningów z data/training_log.csv
    - Zaplanowanych aktywności z data/planned_sessions.csv (jeśli istnieją)
      - **Najpierw sprawdź, czy obejmują zakres tygodnia planu** (plan.week.start → plan.week.end)

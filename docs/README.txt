@@ -42,7 +42,8 @@ Asystent:
 - Wygeneruje CSV w `plans/current_plan.csv`
 - Zarchiwizuje JSON+HTML+CSV w `plans/archive/`
 
-**Zakres planu:** zawsze **7 dni rolling** = **dzisiaj + 6 kolejnych dni** (nie „od poniedziałku”).
+**Zakres planu:** ZAWSZE **7 dni rolling** = **dzisiaj + 6 kolejnych dni** (nie „od poniedziałku”).
+Nawet gdy napiszesz „plan na następny tydzień” / „na kolejny tydzień” — chodzi o ten sam zakres: dzisiaj + 6 dni.
 
 Szczegółowe instrukcje:
 - `docs/instructions/20_generowanie_planu.txt`
@@ -77,7 +78,7 @@ trener/
 ## 📝 Przykład użycia
 
 1. **Po treningu:** Otwórz `data/training_log.csv`, dodaj wiersz z danymi treningu
-2. **Przed nowym tygodniem:** W nowym czacie napisz "Wygeneruj plan na następny tydzień"
+2. **Przed nowym tygodniem:** W nowym czacie napisz "Wygeneruj plan" lub "Plan na następny tydzień" (zawsze = dzisiaj + 6 dni)
 3. **Sprawdź plan:** Otwórz `index.html`
 
 ## ⚠️ Ważne

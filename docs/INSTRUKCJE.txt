@@ -13,8 +13,8 @@ JAK UŻYWAĆ (TL;DR):
   - Najłatwiej: opisz trening w czacie → asystent dopisze do CSV.
   - Szczegóły: `docs/instructions/10_logowanie_treningow.txt`
 
-- Przed nowym planem (w nowym czacie): napisz „Daj mi plan” / „Wygeneruj plan”
-  - Plan jest zawsze na 7 dni „rolling” = dzisiaj + 6 dni.
+- Przed nowym planem (w nowym czacie): napisz „Daj mi plan” / „Wygeneruj plan” / „Plan na następny tydzień”
+  - Plan jest ZAWSZE na 7 dni „rolling” = dzisiaj + 6 dni (nawet przy „następny tydzień”).
   - Szczegóły: `docs/instructions/20_generowanie_planu.txt`
 
 - Sprawdź plan:

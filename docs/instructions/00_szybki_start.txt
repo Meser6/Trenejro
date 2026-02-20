@@ -9,7 +9,7 @@ TEN SYSTEM MA 2 GŁÓWNE OPERACJE:
    - Szczegóły: `docs/instructions/10_logowanie_treningow.txt`
 
 2) Przed nowym planem → POPROŚ O PLAN w nowym czacie
-   - Napisz: „Daj mi plan” / „Wygeneruj plan”
+   - Napisz: „Daj mi plan” / „Wygeneruj plan” / „Plan na następny tydzień” (zawsze = dzisiaj + 6 dni)
    - Asystent najpierw czyta kontekst i planned sessions, potem aktualizuje plan.
    - Szczegóły: `docs/instructions/20_generowanie_planu.txt`
 

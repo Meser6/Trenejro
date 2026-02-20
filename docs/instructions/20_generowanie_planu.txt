@@ -3,10 +3,12 @@ GENEROWANIE / AKTUALIZACJA PLANU (TYDZIEŃ ROLLING)
 ================================================================================
 
 JAK POPROSIĆ O PLAN:
-- W nowym czacie napisz: „Daj mi plan” / „Wygeneruj plan”
+- W nowym czacie napisz: „Daj mi plan” / „Wygeneruj plan” / „Plan na następny tydzień” itd.
 
-ZAKRES PLANU (OBOWIĄZKOWO):
-- Plan jest zawsze na 7 dni „rolling”:
+ZAKRES PLANU (OBOWIĄZKOWO — ZAWSZE):
+- Niezależnie od sformułowania („na dziś”, „na następny tydzień”, „na kolejny tydzień” itp.)
+  plan jest ZAWSZE na 7 dni „rolling” = dzisiaj + 6 kolejnych dni.
+- Nie „od poniedziałku”, nie „od jutra” — zawsze od dzisiejszej daty.
   - `plan.week.start = dzisiaj`
   - `plan.week.end = dzisiaj + 6 dni`
 
