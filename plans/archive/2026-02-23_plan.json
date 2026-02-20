@@ -7,7 +7,7 @@
   "week": { "start": "2026-02-23", "end": "2026-03-01" },
   "goals": [
     "Następny tydzień (pon–ndz). Po skiturach: utrzymujemy obciążenie biegowe ostrożnie + robimy tlen nisko-udarowo.",
-    "Fixed: środa rower ~70 km (25.02) — reszta tygodnia pod to (kolana/zmęczenie).",
+    "Zaplanowane: środa rower ~70 km (25.02) — reszta tygodnia pod to (kolana/zmęczenie).",
     "Priorytet: trail/bieżnia zamiast asfaltu; zero agresywnych zbiegów przy zmęczeniu.",
     "Zima: tlen nisko-udarowo (basen/ścianka) + krótka siła/stabilizacja bez DOMS."
   ],
@@ -15,7 +15,7 @@
     "runs": 3,
     "total_distance_km": 32.0,
     "total_elevation_gain_m": 300,
-    "cross_training": "rower (fixed) + basen (easy) + siła/stabilizacja + opcjonalnie ścianka",
+    "cross_training": "rower (zaplanowany) + basen (easy) + siła/stabilizacja + opcjonalnie ścianka",
     "rest_days": 1
   },
   "monitoring": [
@@ -72,7 +72,7 @@
           "distance_km": 70.0,
           "intensity": "Tlen / Z2 (bez ścigania)",
           "rpe": 4,
-          "notes": "Fixed constraint (planned_sessions). 70 km spokojnie (Z2), równa moc/tempo, bez szarpania na podjazdach. Kadencja raczej 85–95, unikaj ciężkich przełożeń (kolana). Paliwo: jeśli >2h to 30–60 g węgli/h + regularne picie. Jeśli kolana w trakcie >2/10 lub narasta dyskomfort → skróć i wróć spokojnie."
+          "notes": "Zaplanowane w `data/planned_sessions.csv`. 70 km spokojnie (Z2), równa moc/tempo, bez szarpania na podjazdach. Kadencja raczej 85–95, unikaj ciężkich przełożeń (kolana). Paliwo: jeśli >2h to 30–60 g węgli/h + regularne picie. Jeśli kolana w trakcie >2/10 lub narasta dyskomfort → skróć i wróć spokojnie."
         }
       ]
     },

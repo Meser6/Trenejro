@@ -20,7 +20,7 @@ CO ASYSTENT MUSI ZROBIĆ PRZED UŁOŻENIEM PLANU:
   - `data/training_log.csv`
 - Sprawdzić `data/planned_sessions.csv`
   - odfiltrować wiersze, których `date` wpada w zakres `plan.week.start → plan.week.end`
-  - traktować je jako „fixed constraints”
+  - traktować je jako „zaplanowane (stałe) aktywności / stałe ograniczenia planu”
   - jeśli aktywność jest ciężka (np. skitury z dużym przewyższeniem) → dostosować biegi
     (objętość/akcenty/długi bieg) i dodać regenerację (kolana/Achilles)
 

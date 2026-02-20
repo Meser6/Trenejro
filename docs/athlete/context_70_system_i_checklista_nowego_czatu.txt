@@ -49,7 +49,7 @@ trener/
    - Ostatnich treningów z data/training_log.csv
    - Zaplanowanych aktywności z data/planned_sessions.csv (jeśli istnieją)
      - **Najpierw sprawdź, czy obejmują zakres tygodnia planu** (plan.week.start → plan.week.end)
-     - Sesje z tego zakresu traktuj jako **fixed constraints** (plan pod nie układasz, a nie odwrotnie)
+     - Sesje z tego zakresu traktuj jako **zaplanowane (stałe) aktywności / stałe ograniczenia planu** (plan pod nie układasz, a nie odwrotnie)
      - Jeśli planowana aktywność jest ciężka (np. skitury z dużym przewyższeniem) → zmniejsz bieganie/akcenty i dodaj regenerację
    - Zgłoszonych dolegliwości
    - Postępów i adaptacji

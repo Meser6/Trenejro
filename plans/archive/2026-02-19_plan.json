@@ -14,7 +14,7 @@
     "runs": 2,
     "total_distance_km": 18.0,
     "total_elevation_gain_m": 0,
-    "cross_training": "regeneracja + squash (fixed) + basen/ścianka (easy) + siła/stabilizacja + rower (długi tlen)",
+    "cross_training": "regeneracja + squash (zaplanowany) + basen/ścianka (easy) + siła/stabilizacja + rower (długi tlen)",
     "rest_days": 0
   },
   "monitoring": [
@@ -54,7 +54,7 @@
           "duration_min": 60,
           "intensity": "Umiarkowanie",
           "rpe": 6,
-          "notes": "Fixed constraint (planned_sessions). Po skiturach: priorytet kolana. Gra bardziej techniczna, bez wchodzenia na max intensywność. Jeśli kolana w rozgrzewce >2/10 albo czujesz \"ciągnięcie\" bocznie → skróć do 30–40' albo zamień na basen/spacer."
+          "notes": "Zaplanowane w `data/planned_sessions.csv`. Po skiturach: priorytet kolana. Gra bardziej techniczna, bez wchodzenia na max intensywność. Jeśli kolana w rozgrzewce >2/10 albo czujesz \"ciągnięcie\" bocznie → skróć do 30–40' albo zamień na basen/spacer."
         }
       ]
     },

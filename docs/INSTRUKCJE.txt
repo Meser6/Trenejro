@@ -43,7 +43,7 @@ WAŻNE PLIKI (skrót):
 ================================================================================
 
 - `data/training_log.csv`          <- dziennik treningów
-- `data/planned_sessions.csv`      <- zaplanowane aktywności (fixed constraints)
+- `data/planned_sessions.csv`      <- zaplanowane aktywności (stałe ograniczenia planu)
 - `plans/current_plan.json`        <- plan (źródło)
 - `index.html`                    <- plan (podgląd)
 - `plans/current_plan.csv`         <- plan (CSV)

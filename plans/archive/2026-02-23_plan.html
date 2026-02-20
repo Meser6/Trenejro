@@ -164,7 +164,7 @@
       table.plan {
         width: 100%;
         border-collapse: collapse;
-        min-width: 760px;
+        min-width: 900px;
         background: #fff;
       }
       table.plan th, table.plan td {
@@ -253,7 +253,7 @@
         </div>
         <div class="meta">
           <div id="plan-meta"></div>
-          <div>Generated: <span id="generated-at">2026-02-20 10:27:56Z</span></div>
+          <div>Generated: <span id="generated-at">2026-02-20 21:43:21Z</span></div>
         </div>
       </div>
 
@@ -283,6 +283,8 @@
                     <th style="width: 120px">Typ</th>
                     <th style="width: 90px">Czas</th>
                     <th style="width: 90px">Dystans</th>
+                    <th style="width: 95px">Tempo</th>
+                    <th style="width: 80px">km/h</th>
                     <th style="width: 70px">+m</th>
                     <th style="width: 80px">RPE</th>
                     <th style="min-width: 320px">Notatki</th>
@@ -375,7 +377,7 @@
   },
   "goals": [
     "Następny tydzień (pon–ndz). Po skiturach: utrzymujemy obciążenie biegowe ostrożnie + robimy tlen nisko-udarowo.",
-    "Fixed: środa rower ~70 km (25.02) — reszta tygodnia pod to (kolana/zmęczenie).",
+    "Zaplanowane: środa rower ~70 km (25.02) — reszta tygodnia pod to (kolana/zmęczenie).",
     "Priorytet: trail/bieżnia zamiast asfaltu; zero agresywnych zbiegów przy zmęczeniu.",
     "Zima: tlen nisko-udarowo (basen/ścianka) + krótka siła/stabilizacja bez DOMS."
   ],
@@ -383,7 +385,7 @@
     "runs": 3,
     "total_distance_km": 32,
     "total_elevation_gain_m": 300,
-    "cross_training": "rower (fixed) + basen (easy) + siła/stabilizacja + opcjonalnie ścianka",
+    "cross_training": "rower (zaplanowany) + basen (easy) + siła/stabilizacja + opcjonalnie ścianka",
     "rest_days": 1
   },
   "monitoring": [
@@ -440,7 +442,7 @@
           "distance_km": 70,
           "intensity": "Tlen / Z2 (bez ścigania)",
           "rpe": 4,
-          "notes": "Fixed constraint (planned_sessions). 70 km spokojnie (Z2), równa moc/tempo, bez szarpania na podjazdach. Kadencja raczej 85–95, unikaj ciężkich przełożeń (kolana). Paliwo: jeśli >2h to 30–60 g węgli/h + regularne picie. Jeśli kolana w trakcie >2/10 lub narasta dyskomfort → skróć i wróć spokojnie."
+          "notes": "Zaplanowane w `data/planned_sessions.csv`. 70 km spokojnie (Z2), równa moc/tempo, bez szarpania na podjazdach. Kadencja raczej 85–95, unikaj ciężkich przełożeń (kolana). Paliwo: jeśli >2h to 30–60 g węgli/h + regularne picie. Jeśli kolana w trakcie >2/10 lub narasta dyskomfort → skróć i wróć spokojnie."
         }
       ]
     },
@@ -737,6 +739,38 @@
         min: (v) => (v === null || v === undefined || v === '') ? '—' : `${Math.round(Number(v))} min`,
       };
 
+      function toNumber(v) {
+        if (v === null || v === undefined || v === '') return null;
+        const n = Number(v);
+        return Number.isFinite(n) ? n : null;
+      }
+
+      function paceMinPerKm(durMin, distKm) {
+        const dur = toNumber(durMin);
+        const dist = toNumber(distKm);
+        if (!dur || !dist || dur <= 0 || dist <= 0) return null;
+        const p = dur / dist;
+        return Number.isFinite(p) && p > 0 ? p : null;
+      }
+
+      function fmtPace(durMin, distKm) {
+        const p = paceMinPerKm(durMin, distKm);
+        if (!p) return '—';
+        let mm = Math.floor(p);
+        let ss = Math.round((p - mm) * 60);
+        if (ss === 60) { mm += 1; ss = 0; }
+        return `${String(mm).padStart(2, '0')}:${String(ss).padStart(2, '0')}/km`;
+      }
+
+      function fmtSpeed(durMin, distKm) {
+        const dur = toNumber(durMin);
+        const dist = toNumber(distKm);
+        if (!dur || !dist || dur <= 0 || dist <= 0) return '—';
+        const kmh = dist / (dur / 60);
+        if (!Number.isFinite(kmh) || kmh <= 0) return '—';
+        return `${kmh.toFixed(1)} km/h`;
+      }
+
       // Header
       document.getElementById('plan-title').textContent = plan.title || 'Plan treningowy';
       const range = (plan.week && plan.week.start && plan.week.end) ? `${plan.week.start} → ${plan.week.end}` : '';
@@ -817,6 +851,8 @@
               <span class="chip"><strong>${s.sport || '—'}</strong> • ${s.session_type || '—'}</span>
               <span class="chip">Czas: <strong>${fmt.min(s.duration_min)}</strong></span>
               <span class="chip">Dyst: <strong>${fmt.km(s.distance_km)}</strong></span>
+              <span class="chip">Tempo: <strong>${fmtPace(s.duration_min, s.distance_km)}</strong></span>
+              <span class="chip">km/h: <strong>${fmtSpeed(s.duration_min, s.distance_km)}</strong></span>
               <span class="chip">+m: <strong>${fmt.m(s.elevation_gain_m)}</strong></span>
               <span class="chip">RPE: <strong>${(s.rpe === null || s.rpe === undefined || s.rpe === '') ? '—' : `${s.rpe}/10`}</strong></span>
             </div>
@@ -839,7 +875,7 @@
           tr.innerHTML = `
             <td class="mono">${d.date || ''}</td>
             <td><div>${d.day_name || ''}</div><div class="mono">${d.day_short || ''}</div></td>
-            <td class="muted" colspan="7">—</td>
+            <td class="muted" colspan="9">—</td>
             <td class="muted">—</td>
           `;
           tbody.appendChild(tr);
@@ -855,6 +891,8 @@
               <td class="muted">${s.session_type || '—'}</td>
               <td class="muted">${fmt.min(s.duration_min)}</td>
               <td class="muted">${fmt.km(s.distance_km)}</td>
+              <td class="muted">${fmtPace(s.duration_min, s.distance_km)}</td>
+              <td class="muted">${fmtSpeed(s.duration_min, s.distance_km)}</td>
               <td class="muted">${fmt.m(s.elevation_gain_m)}</td>
               <td class="muted">${(s.rpe === null || s.rpe === undefined || s.rpe === '') ? '—' : `${s.rpe}/10`}</td>
               <td class="notes">${s.notes || ''}</td>
@@ -890,6 +928,8 @@
                 <span class="chip"><strong>${s.sport || '—'}</strong> • ${s.session_type || '—'}</span>
                 <span class="chip">Czas: <strong>${fmt.min(s.duration_min)}</strong></span>
                 <span class="chip">Dyst: <strong>${fmt.km(s.distance_km)}</strong></span>
+                <span class="chip">Tempo: <strong>${fmtPace(s.duration_min, s.distance_km)}</strong></span>
+                <span class="chip">km/h: <strong>${fmtSpeed(s.duration_min, s.distance_km)}</strong></span>
                 <span class="chip">+m: <strong>${fmt.m(s.elevation_gain_m)}</strong></span>
                 <span class="chip">RPE: <strong>${(s.rpe === null || s.rpe === undefined || s.rpe === '') ? '—' : `${s.rpe}/10`}</strong></span>
               </div>

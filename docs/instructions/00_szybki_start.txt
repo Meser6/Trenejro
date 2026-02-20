@@ -10,7 +10,7 @@ TEN SYSTEM MA 2 GŁÓWNE OPERACJE:
 
 2) Przed nowym planem → POPROŚ O PLAN w nowym czacie
    - Napisz: „Daj mi plan” / „Wygeneruj plan” / „Plan na następny tydzień” (zawsze = dzisiaj + 6 dni)
-   - Asystent najpierw czyta kontekst i planned sessions, potem aktualizuje plan.
+   - Asystent najpierw czyta kontekst i zaplanowane sesje, potem aktualizuje plan.
    - Szczegóły: `docs/instructions/20_generowanie_planu.txt`
 
 GDZIE SPRAWDZIĆ WYNIK:
@@ -19,6 +19,6 @@ GDZIE SPRAWDZIĆ WYNIK:
 
 TIP:
 - Jeśli masz już zaplanowane aktywności (np. skitury), wpisz je w `data/planned_sessions.csv`.
-  System potraktuje je jako „fixed constraints” w najbliższych 7 dniach.
+  System potraktuje je jako „zaplanowane (stałe) aktywności / stałe ograniczenia planu” w najbliższych 7 dniach.
 
 
