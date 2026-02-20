@@ -190,6 +190,71 @@
       .notes { color: var(--muted); font-size: 12px; line-height: 1.45; }
       .mono { font-family: var(--mono); font-size: 12px; color: var(--muted2); white-space: nowrap; }
 
+      /* Calendar grid (training log) */
+      .calWrap { margin-top: 12px; overflow-x: auto; }
+      .calHeader {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 8px;
+        margin-bottom: 10px;
+        padding: 0 2px;
+        min-width: 760px;
+      }
+      .calHeader .dow {
+        font-size: 12px;
+        font-weight: 900;
+        color: var(--muted2);
+        text-transform: uppercase;
+        letter-spacing: 0.3px;
+        text-align: left;
+      }
+      .calWeek { margin-bottom: 12px; }
+      .calWeekMeta {
+        font-family: var(--mono);
+        font-size: 12px;
+        color: var(--muted2);
+        margin: 0 0 8px;
+      }
+      .calRow {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 8px;
+        min-width: 760px;
+      }
+      .calCell {
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        background: #fff;
+        padding: 10px 10px 9px;
+        min-height: 88px;
+        box-shadow: 0 8px 24px rgba(15,23,42,0.06);
+      }
+      .calCell.empty {
+        background: rgba(17,17,17,0.02);
+        box-shadow: none;
+      }
+      .calDate {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: 8px;
+        margin-bottom: 6px;
+      }
+      .calDate .d {
+        font-family: var(--mono);
+        font-size: 12px;
+        color: var(--muted2);
+        white-space: nowrap;
+      }
+      .calItems { display: grid; gap: 6px; }
+      .calItem {
+        border-left: 3px solid rgba(252, 76, 2, 0.55);
+        padding-left: 8px;
+      }
+      .calItem .t { font-weight: 900; font-size: 12px; }
+      .calItem .m { margin-top: 2px; font-size: 12px; color: var(--muted); font-family: var(--mono); }
+      .calMore { font-size: 12px; color: var(--muted2); font-family: var(--mono); }
+
       .dayCards { display: none; gap: 10px; }
       .dayCard {
         border: 1px solid var(--border);
@@ -253,7 +318,7 @@
         </div>
         <div class="meta">
           <div id="plan-meta"></div>
-          <div>Generated: <span id="generated-at">2026-02-20 21:42:27Z</span></div>
+          <div>Generated: <span id="generated-at">2026-02-20 21:52:28Z</span></div>
         </div>
       </div>
 
@@ -327,28 +392,12 @@
         </section>
 
         <section class="card panel" id="panel-calendar" role="tabpanel" aria-labelledby="tab-calendar" tabindex="0">
-          <h3>Kalendarz (training log — skrót)</h3>
-          <div class="muted" style="font-size:12px; margin-top:-6px;">Z `data/training_log.csv` (pokazuje datę, sport, czas/dystans, RPE, ból). </div>
-          <div class="plan-table-wrap" style="margin-top:12px;">
-            <table class="plan" id="log-table" style="min-width: 760px;">
-              <thead>
-                <tr>
-                  <th style="width: 105px">Data</th>
-                  <th style="width: 90px">Sport</th>
-                  <th style="width: 120px">Typ</th>
-                  <th style="width: 90px">Czas</th>
-                  <th style="width: 90px">Dystans</th>
-                  <th style="width: 70px">+m</th>
-                  <th style="width: 70px">RPE</th>
-                  <th style="width: 130px">Kolano (L/R)</th>
-                  <th style="width: 90px">Achilles</th>
-                  <th style="min-width: 280px">Notatki</th>
-                </tr>
-              </thead>
-              <tbody id="log-tbody"></tbody>
-            </table>
+          <h3>Kalendarz (dziennik — widok tygodniowy)</h3>
+          <div class="muted" style="font-size:12px; margin-top:-6px;">Z `data/training_log.csv`. Tygodnie w wierszach (Pon→Ndz), od najnowszego.</div>
+          <div class="calWrap" id="calendar-wrap">
+            <div class="calHeader" id="cal-header"></div>
+            <div id="calendar-grid"></div>
           </div>
-          <div class="dayCards" id="log-cards" style="margin-top:12px;"></div>
         </section>
       </div>
 
@@ -1007,65 +1056,154 @@
         .filter(r => r.date)
         .sort((a, b) => (b.date || '').localeCompare(a.date || ''));
 
-      const logTbody = document.getElementById('log-tbody');
-      const logCards = document.getElementById('log-cards');
+      const calHeader = document.getElementById('cal-header');
+      const calGrid = document.getElementById('calendar-grid');
 
-      function renderLog(maxRows = 250) {
-        logTbody.innerHTML = '';
-        logCards.innerHTML = '';
+      function isoToDate(iso) {
+        // Treat dates as UTC to avoid TZ drift
+        return new Date(`${iso}T00:00:00Z`);
+      }
 
-        const slice = sortedLog.slice(0, maxRows);
-        if (slice.length === 0) {
-          const tr = document.createElement('tr');
-          tr.innerHTML = `<td class="mono" colspan="10">—</td>`;
-          logTbody.appendChild(tr);
+      function dateToIso(d) {
+        return d.toISOString().slice(0, 10);
+      }
+
+      function weekStartMonday(iso) {
+        const d = isoToDate(iso);
+        const dow = d.getUTCDay(); // 0..6 (Sun..Sat)
+        const mondayOffset = (dow + 6) % 7; // Mon=0 ... Sun=6
+        d.setUTCDate(d.getUTCDate() - mondayOffset);
+        return dateToIso(d);
+      }
+
+      function addDaysIso(iso, days) {
+        const d = isoToDate(iso);
+        d.setUTCDate(d.getUTCDate() + days);
+        return dateToIso(d);
+      }
+
+      function shortSport(s) {
+        const x = String(s || '').toLowerCase();
+        if (!x) return '—';
+        const map = {
+          run: 'bieg',
+          bike: 'rower',
+          swim: 'basen',
+          strength: 'siła',
+          squash: 'squash',
+          ski: 'ski',
+          hike: 'trek',
+          rest: 'odp.'
+        };
+        return map[x] || s;
+      }
+
+      function compactLine(r) {
+        const parts = [];
+        parts.push(shortSport(r.sport));
+        if (r.duration_min) parts.push(`${Math.round(Number(r.duration_min))}'`);
+        if (r.distance_km) parts.push(`${Number(r.distance_km).toFixed(1)} km`);
+        if (r.rpe) parts.push(`RPE ${r.rpe}/10`);
+        const kneeL = r.knee_left_pain_during;
+        const kneeR = r.knee_right_pain_during;
+        const a = r.achilles_pain;
+        const painBits = [];
+        if ((kneeL && kneeL !== '0') || (kneeR && kneeR !== '0')) painBits.push(`K ${kneeL || '—'}/${kneeR || '—'}`);
+        if (a && a !== '0') painBits.push(`A ${a}/10`);
+        return { t: parts.join(' • '), m: painBits.join(' • ') };
+      }
+
+      function renderCalendar() {
+        if (!calHeader || !calGrid) return;
+        calHeader.innerHTML = '';
+        calGrid.innerHTML = '';
+
+        const dows = ['Pon', 'Wt', 'Śr', 'Czw', 'Pt', 'Sob', 'Ndz'];
+        dows.forEach((x) => {
+          const el = document.createElement('div');
+          el.className = 'dow';
+          el.textContent = x;
+          calHeader.appendChild(el);
+        });
+
+        if (sortedLog.length === 0) {
           const div = document.createElement('div');
           div.className = 'muted';
           div.textContent = '—';
-          logCards.appendChild(div);
+          calGrid.appendChild(div);
           return;
         }
 
-        slice.forEach((r) => {
-          const knee = `${r.knee_left_pain_during || '—'}/${r.knee_right_pain_during || '—'} (w) • ${r.knee_left_pain_next_morning || '—'}/${r.knee_right_pain_next_morning || '—'} (rano)`;
-          const tr = document.createElement('tr');
-          tr.innerHTML = `
-            <td class="mono">${r.date || ''}</td>
-            <td class="muted">${r.sport || '—'}</td>
-            <td class="muted">${r.session_type || '—'}</td>
-            <td class="muted">${r.duration_min ? fmt.min(r.duration_min) : '—'}</td>
-            <td class="muted">${r.distance_km ? fmt.km(r.distance_km) : '—'}</td>
-            <td class="muted">${r.elevation_gain_m ? fmt.m(r.elevation_gain_m) : '—'}</td>
-            <td class="muted">${r.rpe ? `${r.rpe}/10` : '—'}</td>
-            <td class="muted">${knee}</td>
-            <td class="muted">${r.achilles_pain ? `${r.achilles_pain}/10` : '—'}</td>
-            <td class="notes">${r.notes || ''}</td>
-          `;
-          logTbody.appendChild(tr);
+        // group sessions by date
+        const byDate = new Map();
+        sortedLog.forEach((r) => {
+          const key = r.date;
+          if (!key) return;
+          if (!byDate.has(key)) byDate.set(key, []);
+          byDate.get(key).push(r);
+        });
 
-          const c = document.createElement('div');
-          c.className = 'dayCard';
-          c.innerHTML = `
-            <div class="dayHead">
-              <div>
-                <div class="d">${r.date || ''}</div>
-                <div class="w">${(r.sport || '—')} • ${(r.session_type || '—')}</div>
-              </div>
-            </div>
-            <div class="row">
-              <span class="chip">Czas: <strong>${r.duration_min ? fmt.min(r.duration_min) : '—'}</strong></span>
-              <span class="chip">Dyst: <strong>${r.distance_km ? fmt.km(r.distance_km) : '—'}</strong></span>
-              <span class="chip">+m: <strong>${r.elevation_gain_m ? fmt.m(r.elevation_gain_m) : '—'}</strong></span>
-              <span class="chip">RPE: <strong>${r.rpe ? `${r.rpe}/10` : '—'}</strong></span>
-              <span class="chip">Kolano: <strong>${(r.knee_left_pain_during || '—')}/${(r.knee_right_pain_during || '—')}</strong></span>
-              <span class="chip">Achilles: <strong>${r.achilles_pain ? `${r.achilles_pain}/10` : '—'}</strong></span>
-            </div>
-            ${r.notes ? `<div class="notes" style="margin-top:10px;">${r.notes}</div>` : ``}
-          `;
-          logCards.appendChild(c);
+        // weeks that have at least 1 entry, newest week first
+        const weekStarts = Array.from(new Set(Array.from(byDate.keys()).map(weekStartMonday)))
+          .sort((a, b) => b.localeCompare(a));
+
+        weekStarts.forEach((ws) => {
+          const we = addDaysIso(ws, 6);
+          const weekBox = document.createElement('div');
+          weekBox.className = 'calWeek';
+          weekBox.innerHTML = `<div class="calWeekMeta">${ws} → ${we}</div>`;
+
+          const row = document.createElement('div');
+          row.className = 'calRow';
+
+          for (let i = 0; i < 7; i++) {
+            const dayIso = addDaysIso(ws, i);
+            const sessions = byDate.get(dayIso) || [];
+            const cell = document.createElement('div');
+            cell.className = `calCell ${sessions.length === 0 ? 'empty' : ''}`;
+
+            const ddmm = (() => {
+              const [y, m, d] = String(dayIso).split('-');
+              return `${d}.${m}`;
+            })();
+
+            const dateLine = document.createElement('div');
+            dateLine.className = 'calDate';
+            dateLine.innerHTML = `<div class="d">${ddmm}</div>`;
+            cell.appendChild(dateLine);
+
+            if (sessions.length > 0) {
+              const items = document.createElement('div');
+              items.className = 'calItems';
+              const maxShow = 2;
+              sessions.slice(0, maxShow).forEach((r) => {
+                const x = compactLine(r);
+                const it = document.createElement('div');
+                it.className = 'calItem';
+                it.innerHTML = `
+                  <div class="t">${x.t}</div>
+                  ${x.m ? `<div class="m">${x.m}</div>` : ``}
+                `;
+                items.appendChild(it);
+              });
+              if (sessions.length > maxShow) {
+                const more = document.createElement('div');
+                more.className = 'calMore';
+                more.textContent = `+${sessions.length - maxShow} więcej`;
+                items.appendChild(more);
+              }
+              cell.appendChild(items);
+            }
+
+            row.appendChild(cell);
+          }
+
+          weekBox.appendChild(row);
+          calGrid.appendChild(weekBox);
         });
       }
-      renderLog();
+
+      renderCalendar();
 
       // Footer hints
       document.getElementById('file-hints').textContent = plan.files?.json ? `JSON: ${plan.files.json}` : '';
