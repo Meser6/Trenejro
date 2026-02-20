@@ -38,7 +38,7 @@ REGUŁA:
   - update planu (JSON/HTML/CSV) lub dopisaniu archiwum w `plans/archive/`
   - update `data/training_log.csv`
   - wygenerowaniu nowego planu
-  → asystent automatycznie robi commit + push.
+  → asystent automatycznie robi commit + push. ZAWSZE (zmiany nie mają zostać lokalnie).
 
 MINIMUM:
 - `git add -A`

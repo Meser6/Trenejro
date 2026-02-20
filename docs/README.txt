@@ -86,6 +86,7 @@ trener/
 - W nowych czatach asystent automatycznie odczyta kontekst
 - Plan jest adaptacyjny - zmienia się na podstawie twoich raportów
 - Monitoruj kolana i inne dolegliwości - to kluczowe dla planowania
+- Po każdej zmianie planu/logów/renderu: **ZAWSZE** commit + push (repo ma trzymać historię).
 
 ## Preferencje aktywności (lubi/nie lubi)
 - Plan będzie (w miarę możliwości) proponował Twoje ulubione aktywności: wspinaczka (ścianka/skała/góry), skitour/narty, bieganie (płasko+trail), rower (szosa), basen, trekking (także z ciężkim plecakiem), squash, sauna (regeneracja), podejścia pod paralotnię.

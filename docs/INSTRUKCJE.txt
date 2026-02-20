@@ -26,7 +26,7 @@ JAK UŻYWAĆ (TL;DR):
     - planu (`plans/current_plan.*` lub `plans/archive/*`)
     - loga treningowego (`data/training_log.csv`)
     - wygenerowaniu nowego planu
-    → asystent robi `git add -A`, `git commit`, `git push`.
+    → asystent ZAWSZE robi `git add -A`, `git commit`, `git push` (nie zostawiamy zmian lokalnie).
   - Szczegóły: `docs/instructions/30_pliki_i_skrypty.txt`
 
 ================================================================================
