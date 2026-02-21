@@ -10,7 +10,12 @@ alwaysApply: true
 - Traktuj `data/weather_forecast.json` jako źródło prognozy dla okna planu (dzisiaj + 6 dni).
 
 ## Jak uwzględniać prognozę
-- Preferuj outdoor (trail/park) w dni z **niską szansą i sumą opadu**; deszcz/śnieg/oblodzenie → bieżnia/basen/siła.
+- Preferuj outdoor (trail/park) w dni z **niską szansą i sumą opadu**.
+- Jeśli pogoda jest „zła” (opad/ślisko/wiatr/mróz) **nie rezygnuj z dnia treningowego**:
+  - bieg outdoor → **zamień na bieżnię** (ten sam cel: easy/long, bez akcentu)
+  - rower outdoor → **indoor Z2**
+  - jeśli plan był trail (zbiegi) → na bieżni bezpiecznie: płasko lub 0–1% (bez agresywnej ekscentryki)
+- Wyjątek: jeśli monitoring zdrowotny mówi „stop” (kolano/Achilles, red flags) → wtedy nisko‑udarowo albo odpoczynek.
 - Zimą bierz pod uwagę **wiatr** i **temperaturę** (przy dyskomforcie/śliskości → indoor).
 - Jeśli są dni z wyraźnie lepszą pogodą, **przesuwaj dłuższy bieg** na „lepsze okno”, o ile nie łamie to twardych ograniczeń z `data/planned_sessions.csv`.
 

@@ -384,15 +384,12 @@
                 <thead>
                   <tr>
                     <th style="width: 105px">Data</th>
-                    <th style="width: 90px">Dzień</th>
                     <th style="min-width: 200px">Sesja</th>
                     <th style="width: 90px">Sport</th>
-                    <th style="width: 120px">Typ</th>
                     <th style="width: 90px">Czas</th>
                     <th style="width: 90px">Dystans</th>
-                    <th style="width: 95px">Tempo</th>
-                    <th style="width: 80px">km/h</th>
-                    <th style="width: 70px">+m</th>
+                    <th style="width: 130px">Tempo</th>
+                    <th style="width: 90px">+m/%</th>
                     <th style="width: 80px">RPE</th>
                     <th style="width: 150px">Pogoda</th>
                     <th style="min-width: 320px">Notatki</th>
@@ -421,10 +418,9 @@
                 <tr>
                   <th style="width: 105px">Data</th>
                   <th style="width: 90px">Sport</th>
-                  <th style="width: 120px">Typ</th>
                   <th style="width: 90px">Czas</th>
                   <th style="width: 90px">Dystans</th>
-                  <th style="width: 70px">+m</th>
+                  <th style="width: 90px">+m/%</th>
                   <th style="min-width: 360px">Notatki</th>
                 </tr>
               </thead>
@@ -496,6 +492,64 @@
         const kmh = dist / (dur / 60);
         if (!Number.isFinite(kmh) || kmh <= 0) return '—';
         return `${kmh.toFixed(1)} km/h`;
+      }
+
+      function speedVal(durMin, distKm) {
+        const dur = toNumber(durMin);
+        const dist = toNumber(distKm);
+        if (!dur || !dist || dur <= 0 || dist <= 0) return null;
+        const kmh = dist / (dur / 60);
+        return Number.isFinite(kmh) && kmh > 0 ? kmh : null;
+      }
+
+      function fmtPaceSpeed(durMin, distKm) {
+        const pace = fmtPace(durMin, distKm);
+        const kmh = speedVal(durMin, distKm);
+        if (pace === '—' && kmh === null) return '—';
+        if (pace !== '—' && kmh === null) return pace;
+        if (pace === '—' && kmh !== null) return `${kmh.toFixed(1)} km/h`;
+        return `${pace} • ${kmh.toFixed(1)} km/h`;
+      }
+
+      function fmtElevGrade(elevM, distKm) {
+        const elev = toNumber(elevM);
+        const dist = toNumber(distKm);
+        if (elev === null && dist === null) return '—';
+        const elevTxt = (elev === null) ? '—' : `${Math.round(elev)}m`;
+        if (!dist || dist <= 0 || elev === null) return elevTxt;
+        const grade = (elev / (dist * 1000)) * 100;
+        if (!Number.isFinite(grade)) return elevTxt;
+        return `${elevTxt} • ${grade.toFixed(1)}%`;
+      }
+
+      function shortSessionTitle(s) {
+        const sport = String(s?.sport || '').toLowerCase().trim();
+        const st = String(s?.session_type || '').toLowerCase().trim();
+        const title = String(s?.title || '').toLowerCase();
+        const dur = toNumber(s?.duration_min);
+        const done = title.includes('wykonane') || title.includes('(wyk');
+
+        function withDone(x) { return done ? `${x} ✅` : x; }
+
+        if (sport === 'run' || sport === 'running') {
+          if (dur !== null && dur >= 60) return withDone('Długi bieg');
+          if (dur !== null && dur <= 40) return withDone('Krótki bieg');
+          return withDone('Bieg');
+        }
+        if (sport === 'bike' || sport === 'cycling') {
+          if (dur !== null && dur >= 120) return 'Długi rower';
+          if (dur !== null && dur <= 75) return 'Krótki rower';
+          return 'Rower';
+        }
+        if (sport === 'swim' || sport === 'swimming') return 'Basen';
+        if (sport === 'strength') {
+          if (st.includes('mobility') || title.includes('mobil')) return 'Mobilność';
+          return 'Siła';
+        }
+        if (sport === 'squash') return 'Squash';
+        if (sport === 'ski' || sport === 'skitouring') return 'Skitury';
+        if (sport === 'recovery' || sport === 'rest') return 'Wypoczynek';
+        return (s?.title || 'Sesja');
       }
 
       function wmoLabel(code) {
@@ -628,7 +682,39 @@
           : '—';
         const short = wmoShort(w.code);
         const icon = wmoIcon(w.code);
-        return `<div class="weatherRow">${icon}<b>${short}</b></div><div class="weatherMeta">${tempTxt} • opad ${precipTxt}</div>`;
+        return `<div class="weatherRow">${icon}<b>${short}</b></div><div class="weatherMeta">${tempTxt} • ${precipTxt}</div>`;
+      }
+
+      function sportLabel(sport) {
+        const x = String(sport || '').toLowerCase().trim();
+        if (!x) return '—';
+        const map = {
+          squash: 'Squash',
+          run: 'Bieganie',
+          running: 'Bieganie',
+          bike: 'Rower',
+          cycling: 'Rower',
+          swim: 'Basen',
+          swimming: 'Basen',
+          strength: 'Siła',
+          ski: 'Narty / skitury',
+          skitouring: 'Narty / skitury',
+          hike: 'Trekking górski',
+          trek: 'Trekking górski',
+          trekking: 'Trekking górski',
+          mountain_hike: 'Trekking górski',
+          paragliding: 'Paralotnia / GH',
+          ground_handling: 'Paralotnia / GH',
+          gh: 'Paralotnia / GH',
+          climb: 'Wspinaczka',
+          climbing: 'Wspinaczka',
+          climbing_wall: 'Wspinaczka',
+          bouldering: 'Wspinaczka',
+          rock_climbing: 'Wspinaczka',
+          recovery: 'Wypoczynek',
+          rest: 'Wypoczynek',
+        };
+        return map[x] || sport;
       }
 
       function sportColor(sport) {
@@ -642,12 +728,14 @@
         const DARK_BLUE = '#1e3a8a';
         const PURPLE = '#7c3aed';
         const LIGHT_BLUE = '#38bdf8';
+        const ORANGE = '#f97316';
         const GRAY = '#6b7280';
 
         if (!x) return GRAY;
 
         if (x === 'squash') return RED;
         if (x === 'run' || x === 'running') return GREEN;
+        if (x === 'bike' || x === 'cycling') return ORANGE;
 
         // górski trekking / hike
         if (x === 'hike' || x === 'trek' || x === 'trekking' || x === 'mountain_hike') return PINK;
@@ -741,20 +829,20 @@
           return;
         }
         sessions.forEach((s) => {
+          const shortTitle = shortSessionTitle(s);
           const box = document.createElement('div');
           box.className = 'dayCard';
           box.style.marginBottom = '10px';
           box.innerHTML = `
             <div class="sportMark" style="--sportColor: ${sportColor(s.sport)}">
-              <div class="titleCell">${s.title || 'Sesja'}</div>
+              <div class="titleCell">${shortTitle || 'Sesja'}</div>
             </div>
             <div class="row" style="margin-top:10px;">
-              <span class="chip"><strong>${s.sport || '—'}</strong> • ${s.session_type || '—'}</span>
+              <span class="chip"><strong>${sportLabel(s.sport)}</strong></span>
               <span class="chip">Czas: <strong>${fmt.min(s.duration_min)}</strong></span>
               <span class="chip">Dyst: <strong>${fmt.km(s.distance_km)}</strong></span>
-              <span class="chip">Tempo: <strong>${fmtPace(s.duration_min, s.distance_km)}</strong></span>
-              <span class="chip">km/h: <strong>${fmtSpeed(s.duration_min, s.distance_km)}</strong></span>
-              <span class="chip">+m: <strong>${fmt.m(s.elevation_gain_m)}</strong></span>
+              <span class="chip">Tempo: <strong>${fmtPaceSpeed(s.duration_min, s.distance_km)}</strong></span>
+              <span class="chip">+m/%: <strong>${fmtElevGrade(s.elevation_gain_m, s.distance_km)}</strong></span>
               <span class="chip">RPE: <strong>${(s.rpe === null || s.rpe === undefined || s.rpe === '') ? '—' : `${s.rpe}/10`}</strong></span>
             </div>
             ${s.notes ? `<div class="notes" style="margin-top:10px;">${s.notes}</div>` : ``}
@@ -770,14 +858,17 @@
       (plan.days || []).forEach(d => {
         const sessions = (d.sessions || []);
         const weatherHtml = fmtWeather(d.date || '');
+        const dayUnderDate = (d.day_name || '').trim();
 
         // Table rows
         if (sessions.length === 0) {
           const tr = document.createElement('tr');
           tr.innerHTML = `
-            <td class="mono">${d.date || ''}</td>
-            <td><div>${d.day_name || ''}</div><div class="mono">${d.day_short || ''}</div></td>
-            <td class="muted" colspan="9">—</td>
+            <td>
+              <div class="mono">${d.date || ''}</div>
+              ${dayUnderDate ? `<div class="muted" style="margin-top:2px;">${dayUnderDate}</div>` : ``}
+            </td>
+            <td class="muted" colspan="7">—</td>
             <td class="weatherCell">${weatherHtml}</td>
             <td class="muted">—</td>
           `;
@@ -785,22 +876,22 @@
         } else {
           sessions.forEach((s, idx) => {
             const showDay = idx === 0;
+            const shortTitle = shortSessionTitle(s);
             const tr = document.createElement('tr');
             tr.innerHTML = `
-              <td class="mono">${showDay ? (d.date || '') : ''}</td>
-              <td>${showDay ? `<div>${d.day_name || ''}</div><div class="mono">${d.day_short || ''}</div>` : ''}</td>
+              <td>
+                ${showDay ? `<div class="mono">${d.date || ''}</div>${dayUnderDate ? `<div class="muted" style="margin-top:2px;">${dayUnderDate}</div>` : ``}` : ``}
+              </td>
               <td>
                 <div class="sportMark" style="--sportColor: ${sportColor(s.sport)}">
-                  <div class="titleCell">${s.title || 'Sesja'}</div>
+                  <div class="titleCell">${shortTitle || 'Sesja'}</div>
                 </div>
               </td>
-              <td class="muted">${s.sport || '—'}</td>
-              <td class="muted">${s.session_type || '—'}</td>
+              <td class="muted">${sportLabel(s.sport)}</td>
               <td class="muted">${fmt.min(s.duration_min)}</td>
               <td class="muted">${fmt.km(s.distance_km)}</td>
-              <td class="muted">${fmtPace(s.duration_min, s.distance_km)}</td>
-              <td class="muted">${fmtSpeed(s.duration_min, s.distance_km)}</td>
-              <td class="muted">${fmt.m(s.elevation_gain_m)}</td>
+              <td class="muted">${fmtPaceSpeed(s.duration_min, s.distance_km)}</td>
+              <td class="muted">${fmtElevGrade(s.elevation_gain_m, s.distance_km)}</td>
               <td class="muted">${(s.rpe === null || s.rpe === undefined || s.rpe === '') ? '—' : `${s.rpe}/10`}</td>
               <td class="weatherCell">${showDay ? weatherHtml : ''}</td>
               <td class="notes">${s.notes || ''}</td>
@@ -830,18 +921,17 @@
           sessions.forEach((s) => {
             const se = document.createElement('div');
             se.className = 'session';
-            const title = s.title || 'Sesja';
+            const title = shortSessionTitle(s) || 'Sesja';
             se.innerHTML = `
               <div class="sportMark" style="--sportColor: ${sportColor(s.sport)}">
                 <div class="titleCell">${title}</div>
               </div>
               <div class="row">
-                <span class="chip"><strong>${s.sport || '—'}</strong> • ${s.session_type || '—'}</span>
+                <span class="chip"><strong>${sportLabel(s.sport)}</strong></span>
                 <span class="chip">Czas: <strong>${fmt.min(s.duration_min)}</strong></span>
                 <span class="chip">Dyst: <strong>${fmt.km(s.distance_km)}</strong></span>
-                <span class="chip">Tempo: <strong>${fmtPace(s.duration_min, s.distance_km)}</strong></span>
-                <span class="chip">km/h: <strong>${fmtSpeed(s.duration_min, s.distance_km)}</strong></span>
-                <span class="chip">+m: <strong>${fmt.m(s.elevation_gain_m)}</strong></span>
+                <span class="chip">Tempo: <strong>${fmtPaceSpeed(s.duration_min, s.distance_km)}</strong></span>
+                <span class="chip">+m/%: <strong>${fmtElevGrade(s.elevation_gain_m, s.distance_km)}</strong></span>
                 <span class="chip">RPE: <strong>${(s.rpe === null || s.rpe === undefined || s.rpe === '') ? '—' : `${s.rpe}/10`}</strong></span>
               </div>
               ${s.notes ? `<div class="notes" style="margin-top:8px;">${s.notes}</div>` : ``}
@@ -867,7 +957,7 @@
 
         if (futurePlans.length === 0) {
           const tr = document.createElement('tr');
-          tr.innerHTML = `<td class="mono" colspan="7">—</td>`;
+          tr.innerHTML = `<td class="mono" colspan="6">—</td>`;
           plansTbody.appendChild(tr);
           const div = document.createElement('div');
           div.className = 'muted';
@@ -880,11 +970,10 @@
           const tr = document.createElement('tr');
           tr.innerHTML = `
             <td class="mono">${p.date || ''}</td>
-            <td class="muted">${p.sport || '—'}</td>
-            <td class="muted">${p.session_type || '—'}</td>
+            <td class="muted">${sportLabel(p.sport)}</td>
             <td class="muted">${p.duration_min ? fmt.min(p.duration_min) : '—'}</td>
             <td class="muted">${p.distance_km ? fmt.km(p.distance_km) : '—'}</td>
-            <td class="muted">${p.elevation_gain_m ? fmt.m(p.elevation_gain_m) : '—'}</td>
+            <td class="muted">${(p.elevation_gain_m || p.distance_km) ? fmtElevGrade(p.elevation_gain_m, p.distance_km) : '—'}</td>
             <td class="notes">${p.notes || ''}</td>
           `;
           plansTbody.appendChild(tr);
@@ -895,13 +984,13 @@
             <div class="dayHead">
               <div>
                 <div class="d">${p.date || ''}</div>
-                <div class="w">${(p.sport || '—')} • ${(p.session_type || '—')}</div>
+                <div class="w">${sportLabel(p.sport)}</div>
               </div>
             </div>
             <div class="row">
               <span class="chip">Czas: <strong>${p.duration_min ? fmt.min(p.duration_min) : '—'}</strong></span>
               <span class="chip">Dyst: <strong>${p.distance_km ? fmt.km(p.distance_km) : '—'}</strong></span>
-              <span class="chip">+m: <strong>${p.elevation_gain_m ? fmt.m(p.elevation_gain_m) : '—'}</strong></span>
+              <span class="chip">+m/%: <strong>${(p.elevation_gain_m || p.distance_km) ? fmtElevGrade(p.elevation_gain_m, p.distance_km) : '—'}</strong></span>
             </div>
             ${p.notes ? `<div class="notes" style="margin-top:10px;">${p.notes}</div>` : ``}
           `;
@@ -1074,6 +1163,7 @@
         const items = [
           { sport: 'squash', h: 'Squash', s: 'czerwony' },
           { sport: 'run', h: 'Bieganie', s: 'zielony' },
+          { sport: 'bike', h: 'Rower', s: 'pomarańczowy' },
           { sport: 'hike', h: 'Trekking górski', s: 'różowy' },
           { sport: 'ski', h: 'Narty / skitury', s: 'ciemny niebieski' },
           { sport: 'paragliding', h: 'Paralotnia / GH', s: 'fioletowy' },

@@ -18,3 +18,13 @@ alwaysApply: true
 - Plan ma być adaptacyjny: bazuj na ostatnich treningach + dolegliwościach (kolana/Achilles).
 - Cross‑training dobieraj sezonowo (sprawdź miesiąc/season w `node scripts/get_date.js`).
 - Preferencje: trail > asfalt; 3–4 biegi/tydz (zależnie od kolan) + inne sporty.
+
+## Nazwy sesji (krótko, hasłowo)
+- Tytuły w `plan.days[].sessions[].title` mają być **krótkie** (do ~2–3 słów), bez rozbudowanych opisów.
+- Przykłady:
+  - bieg: **„Krótki bieg”**, **„Bieg”**, **„Długi bieg”**
+  - rower: **„Krótki rower”**, **„Rower”**, **„Długi rower”**
+  - basen: **„Basen”**
+  - siła/mobilność: **„Siła”**, **„Mobilność”**
+  - odpoczynek: **„Wypoczynek”**
+- Szczegóły (warunki, zasady bólu, alternatywa indoor/outdoor) wpisuj do `notes`, nie do `title`.
