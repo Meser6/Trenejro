@@ -1,0 +1,20 @@
+---
+description: Generate/update rolling 7-day plan (inputs, constraints, seasonality)
+alwaysApply: true
+---
+
+# Trenejro — generowanie planu (rolling 7 dni)
+
+- Zakres planu jest zawsze: **dzisiaj + 6 dni** (nie „od poniedziałku”, nie „od jutra”).
+  - `plan.week.start = today`
+  - `plan.week.end = today + 6`
+
+## Zanim ułożysz plan
+- Uruchom `node scripts/read_context.js` (dla daty + ostatnich treningów).
+- Przeczytaj: `docs/ATHLETE_CONTEXT.txt`, `docs/ATHLETE_DETAILED_PROFILE.txt`, `data/training_log.csv`.
+- Sprawdź `data/planned_sessions.csv` i potraktuj wpisy w oknie planu jako **twarde ograniczenia**.
+
+## Zasady doboru aktywności
+- Plan ma być adaptacyjny: bazuj na ostatnich treningach + dolegliwościach (kolana/Achilles).
+- Cross‑training dobieraj sezonowo (sprawdź miesiąc/season w `node scripts/get_date.js`).
+- Preferencje: trail > asfalt; 3–4 biegi/tydz (zależnie od kolan) + inne sporty.

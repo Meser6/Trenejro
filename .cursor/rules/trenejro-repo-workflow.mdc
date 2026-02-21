@@ -1,0 +1,24 @@
+---
+description: Repo file conventions + how to render/where to look
+alwaysApply: true
+---
+
+# Trenejro — pliki, render i workflow repo
+
+## Pliki „źródła prawdy”
+- log: `data/training_log.csv`
+- plan: `plans/current_plan.json`
+
+## Render / podgląd
+- podgląd planu: `index.html` (render z JSON; nie utrzymujemy planów w `.txt`)
+- CSV planu: `plans/current_plan.csv`
+- render komendami:
+  - `node scripts/render_plan.js`
+  - `node scripts/render_plan_csv.js`
+
+## Archiwum planów
+- `plans/archive/YYYY-MM-DD_plan.(json|html|csv)` (YYYY-MM-DD = `plan.week.start`)
+- szybkie archiwizowanie: `node scripts/archive_plan.js`
+
+## Git
+- Repo ma trzymać historię zmian, ale commit/push wykonuj **tylko jeśli USER o to poprosi**.

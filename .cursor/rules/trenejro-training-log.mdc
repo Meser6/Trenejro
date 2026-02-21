@@ -1,0 +1,24 @@
+---
+description: Logging workouts to data/training_log.csv (minimum fields + duplicate check)
+alwaysApply: true
+---
+
+# Trenejro — logowanie treningów (CSV)
+
+- Jedynym „dziennikiem prawdy” jest `data/training_log.csv`.
+- Gdy USER opisuje trening w czacie, przekształć to do jednego nowego wiersza CSV.
+- Przed dopisaniem sprawdź ryzyko duplikatu (czy w tej dacie nie ma już wpisu o tym samym sporcie).
+
+## Minimum wymagane do dopisania (dopytaj o braki)
+- data (dzisiaj/wczoraj/`YYYY-MM-DD`; użyj `node scripts/get_date.js`)
+- sport
+- czas (`duration_min`)
+- RPE (1–10)
+- ból kolan **w trakcie** (0–10) + strona (L/P/oba)
+- ból Achillesa **następnego ranka** (0–10) + strona
+
+## Jeśli brak strony (L/P)
+- wpisz wartość do obu stron i zaznacz w `notes`, że strona nieokreślona.
+
+## Opcjonalne (jeśli USER poda)
+- dystans, przewyższenie, tempo, nawierzchnia, ból kolan następnego ranka, notatki.

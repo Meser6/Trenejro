@@ -1,0 +1,20 @@
+---
+description: Persist plan changes to repo files (JSON/HTML/CSV)
+alwaysApply: true
+---
+
+# Trenejro — plan persistence (repo source of truth)
+
+- Gdy USER prosi o plan (także „na dziś”) albo zmianę pojedynczej sesji, nie kończ na odpowiedzi w czacie.
+- Zawsze aktualizuj pliki:
+  - `plans/current_plan.json` (źródło prawdy; zakres: **dzisiaj + 6 dni**)
+  - render: `node scripts/render_plan.js` → `index.html`
+  - render: `node scripts/render_plan_csv.js` → `plans/current_plan.csv`
+- Po istotnej zmianie planu dopisz archiwum:
+  - `node scripts/archive_plan.js` → `plans/archive/YYYY-MM-DD_plan.(json|html|csv)` (YYYY-MM-DD = `plan.week.start`)
+- Uwzględnij ograniczenia zdrowotne (kolana ITB‑podobne, red flags) w treści sesji/monitoringu.
+- Zaplanowane aktywności z `data/planned_sessions.csv` w oknie planu są **twardymi ograniczeniami** (plan układamy pod nie).
+- Nie twórz planów w `.txt` (podgląd planu ma być w `index.html`).
+
+- Po zapisaniu zmian pokaż USERowi gdzie są pliki (`plans/current_plan.json`, `index.html`, `plans/current_plan.csv`).
+- Jeśli USER chce, zrób commit/push; inaczej zostaw zmiany lokalnie.

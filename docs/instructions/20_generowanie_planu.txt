@@ -29,6 +29,12 @@ CO POWSTAJE (PLIKI WYJŚCIOWE):
 - `index.html` — podgląd (render)
 - `plans/current_plan.csv` — CSV planu
 
+UWAGA (PROŚBY TYPU „NA DZIŚ” / ZMIANA JEDNEJ SESJI):
+- Nawet jeśli USER pyta tylko o „dzisiejszy bieg” albo „czy to dobry pomysł”:
+  - traktujemy to jako **aktualizację planu rolling 7 dni (dzisiaj + 6)**
+  - zapisujemy do `plans/current_plan.json` i renderujemy `index.html` + `plans/current_plan.csv`
+  - nie zostawiamy planu wyłącznie w czacie
+
 RENDER:
 - `node scripts/render_plan.js` (JSON → HTML)
 - `node scripts/render_plan_csv.js` (JSON → CSV)
@@ -37,6 +43,7 @@ ARCHIWIZACJA (PO KAŻDYM WYGNEROWANIU / ISTOTNEJ ZMIANIE):
 - `plans/archive/YYYY-MM-DD_plan.json` (data = start tygodnia)
 - `plans/archive/YYYY-MM-DD_plan.html`
 - `plans/archive/YYYY-MM-DD_plan.csv`
+  - (szybko): `node scripts/archive_plan.js`
 
 UWAGI:
 - Jeśli `data/planned_sessions.csv` koliduje z planem → plan zmieniamy, a w `notes` wyjaśniamy decyzję.
