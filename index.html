@@ -189,8 +189,11 @@
       .titleCell { font-weight: 900; }
       .notes { color: var(--muted); font-size: 12px; line-height: 1.45; }
       .mono { font-family: var(--mono); font-size: 12px; color: var(--muted2); white-space: nowrap; }
-      .weatherCell { font-size: 12px; color: var(--muted); line-height: 1.35; }
+      .weatherCell { font-size: 12px; color: var(--muted); line-height: 1.25; }
       .weatherCell b { color: var(--text); font-weight: 900; }
+      .weatherRow { display: flex; align-items: center; gap: 6px; }
+      .wicon { width: 16px; height: 16px; flex: 0 0 16px; color: rgba(17,17,17,0.72); }
+      .weatherMeta { font-family: var(--mono); font-size: 11px; color: var(--muted2); white-space: normal; margin-top: 3px; }
 
       /* Sport marker (Plan + Today) */
       .sportMark {
@@ -356,7 +359,7 @@
         </div>
         <div class="meta">
           <div id="plan-meta"></div>
-          <div>Generated: <span id="generated-at">2026-02-21 18:26:56Z</span></div>
+          <div>Generated: <span id="generated-at">2026-02-21 18:49:36Z</span></div>
         </div>
       </div>
 
@@ -391,7 +394,7 @@
                     <th style="width: 80px">km/h</th>
                     <th style="width: 70px">+m</th>
                     <th style="width: 80px">RPE</th>
-                    <th style="min-width: 190px">Pogoda</th>
+                    <th style="width: 150px">Pogoda</th>
                     <th style="min-width: 320px">Notatki</th>
                   </tr>
                 </thead>
@@ -850,7 +853,7 @@
       }
     ],
     "weather_forecast": {
-      "fetched_at": "2026-02-21T18:26:56.549Z",
+      "fetched_at": "2026-02-21T18:39:05.773Z",
       "location": {
         "name": "Kraków",
         "latitude": 50.0647,
@@ -861,7 +864,7 @@
       "raw": {
         "latitude": 50.057274,
         "longitude": 19.949356,
-        "generationtime_ms": 0.2707242965698242,
+        "generationtime_ms": 0.3147125244140625,
         "utc_offset_seconds": 3600,
         "timezone": "Europe/Warsaw",
         "timezone_abbreviation": "GMT+1",
@@ -1095,6 +1098,82 @@
         return `Kod ${c}`;
       }
 
+      function wmoShort(code) {
+        const c = Number(code);
+        if (!Number.isFinite(c)) return '';
+        if (c === 0 || c === 1) return 'Słońce';
+        if (c === 2) return 'Chmury';
+        if (c === 3) return 'Pochm.';
+        if (c === 45 || c === 48) return 'Mgła';
+        if (c === 51 || c === 53 || c === 55 || c === 56 || c === 57) return 'Mżawka';
+        if (c === 61 || c === 63 || c === 65 || c === 66 || c === 67) return 'Deszcz';
+        if (c === 71 || c === 73 || c === 75 || c === 77) return 'Śnieg';
+        if (c === 80 || c === 81 || c === 82) return 'Opady';
+        if (c === 85 || c === 86) return 'Śnieg';
+        if (c === 95 || c === 96 || c === 99) return 'Burza';
+        return 'Pogoda';
+      }
+
+      function iconSvg(kind) {
+        // Inline SVG, uses currentColor
+        if (kind === 'sun') return `
+          <svg class="wicon" viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="2"></circle>
+            <path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M4.4 4.4l2.1 2.1M17.5 17.5l2.1 2.1M19.6 4.4l-2.1 2.1M6.5 17.5l-2.1 2.1" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+          </svg>
+        `;
+        if (kind === 'cloud') return `
+          <svg class="wicon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M7.5 18.5h10.2a3.8 3.8 0 0 0 0-7.6 5.6 5.6 0 0 0-10.8 1.6A3.6 3.6 0 0 0 7.5 18.5Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"></path>
+          </svg>
+        `;
+        if (kind === 'partly') return `
+          <svg class="wicon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M7.2 7.2A4.2 4.2 0 0 1 15 9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+            <path d="M6.2 18.5h9.8a3.4 3.4 0 0 0 0-6.8 5 5 0 0 0-9.6 1.4A3.2 3.2 0 0 0 6.2 18.5Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"></path>
+          </svg>
+        `;
+        if (kind === 'rain') return `
+          <svg class="wicon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M7.5 14.5h10.2a3.8 3.8 0 0 0 0-7.6 5.6 5.6 0 0 0-10.8 1.6A3.6 3.6 0 0 0 7.5 14.5Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"></path>
+            <path d="M8 17.2l-1 2.3M12 17.2l-1 2.3M16 17.2l-1 2.3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+          </svg>
+        `;
+        if (kind === 'snow') return `
+          <svg class="wicon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M7.5 14.5h10.2a3.8 3.8 0 0 0 0-7.6 5.6 5.6 0 0 0-10.8 1.6A3.6 3.6 0 0 0 7.5 14.5Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"></path>
+            <path d="M10 17.5h0M14 17.5h0M12 19.5h0" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"></path>
+          </svg>
+        `;
+        if (kind === 'fog') return `
+          <svg class="wicon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M4 9h16M6 12h14M4 15h16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+          </svg>
+        `;
+        if (kind === 'storm') return `
+          <svg class="wicon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M7.5 14.5h10.2a3.8 3.8 0 0 0 0-7.6 5.6 5.6 0 0 0-10.8 1.6A3.6 3.6 0 0 0 7.5 14.5Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"></path>
+            <path d="M12.5 15.8l-2 3.7h2.4l-1 3.0 3.1-4.3h-2.3l1.1-2.4z" fill="currentColor"></path>
+          </svg>
+        `;
+        return iconSvg('cloud');
+      }
+
+      function wmoIcon(code) {
+        const c = Number(code);
+        if (!Number.isFinite(c)) return iconSvg('cloud');
+        if (c === 0 || c === 1) return iconSvg('sun');
+        if (c === 2) return iconSvg('partly');
+        if (c === 3) return iconSvg('cloud');
+        if (c === 45 || c === 48) return iconSvg('fog');
+        if (c === 51 || c === 53 || c === 55 || c === 56 || c === 57) return iconSvg('rain');
+        if (c === 61 || c === 63 || c === 65 || c === 66 || c === 67) return iconSvg('rain');
+        if (c === 71 || c === 73 || c === 75 || c === 77 || c === 85 || c === 86) return iconSvg('snow');
+        if (c === 80 || c === 81 || c === 82) return iconSvg('rain');
+        if (c === 95 || c === 96 || c === 99) return iconSvg('storm');
+        return iconSvg('cloud');
+      }
+
       function weatherForDate(isoDate) {
         const wf = plan.datasets?.weather_forecast;
         const daily = wf?.daily;
@@ -1123,14 +1202,11 @@
         const pMm = (w.precipMm === null || w.precipMm === undefined || w.precipMm === '') ? null : Number(w.precipMm);
         const pProb = (w.precipProb === null || w.precipProb === undefined || w.precipProb === '') ? null : Number(w.precipProb);
         const precipTxt = (Number.isFinite(pMm) || Number.isFinite(pProb))
-          ? `${Number.isFinite(pMm) ? `${pMm.toFixed(1)} mm` : '—'}${Number.isFinite(pProb) ? ` (${Math.round(pProb)}%)` : ''}`
+          ? `${Number.isFinite(pMm) ? `${pMm.toFixed(1)}mm` : '—'}${Number.isFinite(pProb) ? `/${Math.round(pProb)}%` : ''}`
           : '—';
-        const snow = (w.snowCm === null || w.snowCm === undefined || w.snowCm === '') ? null : Number(w.snowCm);
-        const snowTxt = Number.isFinite(snow) && snow > 0 ? `${snow.toFixed(1)} cm śniegu` : '';
-        const wind = (w.windKmh === null || w.windKmh === undefined || w.windKmh === '') ? null : Number(w.windKmh);
-        const windTxt = Number.isFinite(wind) ? `${wind.toFixed(0)} km/h` : '—';
-        const label = wmoLabel(w.code);
-        return `<div><b>${label || '—'}</b></div><div class="mono">${tempTxt} • opad: ${precipTxt} • wiatr: ${windTxt}</div>${snowTxt ? `<div class="mono">${snowTxt}</div>` : ''}`;
+        const short = wmoShort(w.code);
+        const icon = wmoIcon(w.code);
+        return `<div class="weatherRow">${icon}<b>${short}</b></div><div class="weatherMeta">${tempTxt} • opad ${precipTxt}</div>`;
       }
 
       function sportColor(sport) {
