@@ -189,6 +189,8 @@
       .titleCell { font-weight: 900; }
       .notes { color: var(--muted); font-size: 12px; line-height: 1.45; }
       .mono { font-family: var(--mono); font-size: 12px; color: var(--muted2); white-space: nowrap; }
+      .weatherCell { font-size: 12px; color: var(--muted); line-height: 1.35; }
+      .weatherCell b { color: var(--text); font-weight: 900; }
 
       /* Sport marker (Plan + Today) */
       .sportMark {
@@ -354,7 +356,7 @@
         </div>
         <div class="meta">
           <div id="plan-meta"></div>
-          <div>Generated: <span id="generated-at">2026-02-21 18:11:00Z</span></div>
+          <div>Generated: <span id="generated-at">2026-02-21 18:26:56Z</span></div>
         </div>
       </div>
 
@@ -389,6 +391,7 @@
                     <th style="width: 80px">km/h</th>
                     <th style="width: 70px">+m</th>
                     <th style="width: 80px">RPE</th>
+                    <th style="min-width: 190px">Pogoda</th>
                     <th style="min-width: 320px">Notatki</th>
                   </tr>
                 </thead>
@@ -471,12 +474,13 @@
     "Plan kroczący 7 dni (dzisiaj + 6): 2026-02-21 → 2026-02-27.",
     "Priorytet: kolana (bocznie / ITB‑podobne) → teren/bieżnia > asfalt; zero agresywnych zbiegów w zmęczeniu.",
     "Budujemy regularność bez skoków i adaptację do nowych butów: 2–3 spokojne biegi (jeden trochę dłuższy) + basen (luźno) + siła/stabilizacja + 1 dzień pełnego odpoczynku (opcjonalnie spacer/sauna).",
-    "Stałe ograniczenie w tym oknie: 2026-02-25 rower ~70 km (tlen/Z2) z `data/planned_sessions.csv` (jeśli pogoda niebezpieczna → zamiana na indoor)."
+    "Stałe ograniczenie w tym oknie: 2026-02-25 rower ~70 km (tlen/Z2) z `data/planned_sessions.csv` (jeśli pogoda niebezpieczna → zamiana na indoor).",
+    "Uwzględniamy prognozę pogody (Kraków): mokro 22–25.02 → więcej indoor; sucho 26–27.02 → outdoor/trail jeśli kolana OK."
   ],
   "summary": {
     "runs": 3,
-    "total_distance_km": 23.5,
-    "total_elevation_gain_m": 150,
+    "total_distance_km": 24.5,
+    "total_elevation_gain_m": 200,
     "cross_training": "rower (zaplanowany; warunkowo szosa) + basen (luźno) + siła/stabilizacja + opcjonalny spacer/sauna",
     "rest_days": 1
   },
@@ -522,16 +526,13 @@
       "day_short": "ndz",
       "sessions": [
         {
-          "title": "Bieg EASY (średnio-długi, trail)",
-          "sport": "run",
-          "session_type": "easy",
-          "surface": "trail",
-          "duration_min": 60,
-          "distance_km": 10,
-          "elevation_gain_m": 150,
-          "intensity": "Luźno (tlen)",
-          "rpe": 3,
-          "notes": "50–65' w spokojnym tlenie. Na zbiegach krótki krok, miękko, bez agresji (ITB). Jeśli jutro rano kolana >2/10 albo czujesz narastanie bólu → zamiast biegu zrób basen 40–50' luźno + mobilność."
+          "title": "Odpoczynek + spacer / sauna (opcjonalnie)",
+          "sport": "recovery",
+          "session_type": "rest",
+          "duration_min": 30,
+          "intensity": "Bardzo lekko",
+          "rpe": 1,
+          "notes": "Prognoza: mokro → zamiast biegania zrób 30–60' spaceru albo sauna. Jeśli czujesz sztywność: 10–15' mobilność biodro/pośladek/łydka."
         }
       ]
     },
@@ -593,16 +594,16 @@
       "day_short": "czw",
       "sessions": [
         {
-          "title": "Bieg EASY (treadmill/trail) + opcjonalnie przebieżki",
+          "title": "Bieg EASY (outdoor jeśli sucho) + opcjonalnie przebieżki",
           "sport": "run",
           "session_type": "easy",
           "surface": "trail_or_treadmill",
           "duration_min": 45,
           "distance_km": 7.5,
-          "elevation_gain_m": 0,
+          "elevation_gain_m": 50,
           "intensity": "Luźno",
           "rpe": 4,
-          "notes": "40–50' luźno. Preferuj bieżnię lub miękki teren (unikaj asfaltu). Jeśli kolana i Achilles rano 0–1/10 → na końcu 4×20\" luźne przebieżki (pełen luz, nie sprint). Jeśli jakikolwiek sygnał z kolan/Achillesa → bez przebieżek."
+          "notes": "Prognoza: sucho → preferuj miękki teren/trail; jak ślisko → bieżnia. 40–50' luźno (unikaj asfaltu). Jeśli kolana i Achilles rano 0–1/10 → na końcu 4×20\" luźne przebieżki (pełen luz, nie sprint). Jeśli jakikolwiek sygnał z kolan/Achillesa → bez przebieżek."
         }
       ]
     },
@@ -610,7 +611,20 @@
       "date": "2026-02-27",
       "day_name": "Piątek",
       "day_short": "pt",
-      "sessions": []
+      "sessions": [
+        {
+          "title": "Dłuższy bieg EASY (trail / park)",
+          "sport": "run",
+          "session_type": "easy",
+          "surface": "trail",
+          "duration_min": 65,
+          "distance_km": 11,
+          "elevation_gain_m": 150,
+          "intensity": "Luźno (tlen)",
+          "rpe": 4,
+          "notes": "Prognoza: sucho → to najlepsze okno na dłuższy bieg. 60–70' w tlenie. Zbiegi: krótki krok, miękko, bez agresji (ITB). Zasada bólu: 0–2/10 OK; 3/10 lub narasta → marsz i koniec."
+        }
+      ]
     }
   ],
   "datasets": {
@@ -834,7 +848,184 @@
         "achilles_pain": "",
         "notes": "Bieżnia: 6 km / 35 min. Zmęczenie 4/10. Nowe buty. Ból kolan 1/10 podczas biegu (strona nieokreślona; wpisane na oba). Kolana/Achilles następnego ranka: do uzupełnienia."
       }
-    ]
+    ],
+    "weather_forecast": {
+      "fetched_at": "2026-02-21T18:26:56.549Z",
+      "location": {
+        "name": "Kraków",
+        "latitude": 50.0647,
+        "longitude": 19.945,
+        "timezone": "Europe/Warsaw",
+        "source": "open-meteo"
+      },
+      "raw": {
+        "latitude": 50.057274,
+        "longitude": 19.949356,
+        "generationtime_ms": 0.2707242965698242,
+        "utc_offset_seconds": 3600,
+        "timezone": "Europe/Warsaw",
+        "timezone_abbreviation": "GMT+1",
+        "elevation": 215,
+        "daily_units": {
+          "time": "iso8601",
+          "weathercode": "wmo code",
+          "temperature_2m_max": "°C",
+          "temperature_2m_min": "°C",
+          "precipitation_sum": "mm",
+          "precipitation_probability_max": "%",
+          "snowfall_sum": "cm",
+          "wind_speed_10m_max": "km/h"
+        },
+        "daily": {
+          "time": [
+            "2026-02-21",
+            "2026-02-22",
+            "2026-02-23",
+            "2026-02-24",
+            "2026-02-25",
+            "2026-02-26",
+            "2026-02-27"
+          ],
+          "weathercode": [
+            71,
+            55,
+            53,
+            55,
+            51,
+            3,
+            3
+          ],
+          "temperature_2m_max": [
+            2.6,
+            7.9,
+            9.1,
+            5.6,
+            7.8,
+            10.7,
+            12.9
+          ],
+          "temperature_2m_min": [
+            -9.3,
+            1.8,
+            3.7,
+            2,
+            1.4,
+            -1.6,
+            3.2
+          ],
+          "precipitation_sum": [
+            0.8,
+            2.1,
+            3.8,
+            3.4,
+            0.6,
+            0,
+            0
+          ],
+          "precipitation_probability_max": [
+            12,
+            87,
+            92,
+            83,
+            24,
+            1,
+            8
+          ],
+          "snowfall_sum": [
+            0.14,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "wind_speed_10m_max": [
+            13,
+            13.3,
+            19.1,
+            18.6,
+            12.1,
+            12.8,
+            15.4
+          ]
+        }
+      },
+      "daily": {
+        "time": [
+          "2026-02-21",
+          "2026-02-22",
+          "2026-02-23",
+          "2026-02-24",
+          "2026-02-25",
+          "2026-02-26",
+          "2026-02-27"
+        ],
+        "weathercode": [
+          71,
+          55,
+          53,
+          55,
+          51,
+          3,
+          3
+        ],
+        "temperature_2m_max": [
+          2.6,
+          7.9,
+          9.1,
+          5.6,
+          7.8,
+          10.7,
+          12.9
+        ],
+        "temperature_2m_min": [
+          -9.3,
+          1.8,
+          3.7,
+          2,
+          1.4,
+          -1.6,
+          3.2
+        ],
+        "precipitation_sum": [
+          0.8,
+          2.1,
+          3.8,
+          3.4,
+          0.6,
+          0,
+          0
+        ],
+        "precipitation_probability_max": [
+          12,
+          87,
+          92,
+          83,
+          24,
+          1,
+          8
+        ],
+        "snowfall_sum": [
+          0.14,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "wind_speed_10m_max": [
+          13,
+          13.3,
+          19.1,
+          18.6,
+          12.1,
+          12.8,
+          15.4
+        ]
+      }
+    }
   },
   "files": {
     "json": "plans/current_plan.json",
@@ -880,6 +1071,66 @@
         const kmh = dist / (dur / 60);
         if (!Number.isFinite(kmh) || kmh <= 0) return '—';
         return `${kmh.toFixed(1)} km/h`;
+      }
+
+      function wmoLabel(code) {
+        const c = Number(code);
+        if (!Number.isFinite(c)) return '';
+        // WMO weather codes (Open-Meteo)
+        if (c === 0) return 'Bezchmurnie';
+        if (c === 1) return 'Pogodnie';
+        if (c === 2) return 'Częściowe zachmurzenie';
+        if (c === 3) return 'Pochmurno';
+        if (c === 45 || c === 48) return 'Mgła';
+        if (c === 51 || c === 53 || c === 55) return 'Mżawka';
+        if (c === 56 || c === 57) return 'Marznąca mżawka';
+        if (c === 61 || c === 63 || c === 65) return 'Deszcz';
+        if (c === 66 || c === 67) return 'Marznący deszcz';
+        if (c === 71 || c === 73 || c === 75) return 'Śnieg';
+        if (c === 77) return 'Ziarnisty śnieg';
+        if (c === 80 || c === 81 || c === 82) return 'Przelotne opady';
+        if (c === 85 || c === 86) return 'Przelotny śnieg';
+        if (c === 95) return 'Burza';
+        if (c === 96 || c === 99) return 'Burza z gradem';
+        return `Kod ${c}`;
+      }
+
+      function weatherForDate(isoDate) {
+        const wf = plan.datasets?.weather_forecast;
+        const daily = wf?.daily;
+        if (!daily || !Array.isArray(daily.time)) return null;
+        const i = daily.time.indexOf(isoDate);
+        if (i < 0) return null;
+        const get = (k) => Array.isArray(daily[k]) ? daily[k][i] : null;
+        return {
+          date: isoDate,
+          code: get('weathercode'),
+          tMax: get('temperature_2m_max'),
+          tMin: get('temperature_2m_min'),
+          precipMm: get('precipitation_sum'),
+          precipProb: get('precipitation_probability_max'),
+          snowCm: get('snowfall_sum'),
+          windKmh: get('wind_speed_10m_max'),
+        };
+      }
+
+      function fmtWeather(isoDate) {
+        const w = weatherForDate(isoDate);
+        if (!w) return '—';
+        const tMin = (w.tMin === null || w.tMin === undefined || w.tMin === '') ? null : Number(w.tMin);
+        const tMax = (w.tMax === null || w.tMax === undefined || w.tMax === '') ? null : Number(w.tMax);
+        const tempTxt = (Number.isFinite(tMin) && Number.isFinite(tMax)) ? `${tMin.toFixed(0)}–${tMax.toFixed(0)}°C` : '—';
+        const pMm = (w.precipMm === null || w.precipMm === undefined || w.precipMm === '') ? null : Number(w.precipMm);
+        const pProb = (w.precipProb === null || w.precipProb === undefined || w.precipProb === '') ? null : Number(w.precipProb);
+        const precipTxt = (Number.isFinite(pMm) || Number.isFinite(pProb))
+          ? `${Number.isFinite(pMm) ? `${pMm.toFixed(1)} mm` : '—'}${Number.isFinite(pProb) ? ` (${Math.round(pProb)}%)` : ''}`
+          : '—';
+        const snow = (w.snowCm === null || w.snowCm === undefined || w.snowCm === '') ? null : Number(w.snowCm);
+        const snowTxt = Number.isFinite(snow) && snow > 0 ? `${snow.toFixed(1)} cm śniegu` : '';
+        const wind = (w.windKmh === null || w.windKmh === undefined || w.windKmh === '') ? null : Number(w.windKmh);
+        const windTxt = Number.isFinite(wind) ? `${wind.toFixed(0)} km/h` : '—';
+        const label = wmoLabel(w.code);
+        return `<div><b>${label || '—'}</b></div><div class="mono">${tempTxt} • opad: ${precipTxt} • wiatr: ${windTxt}</div>${snowTxt ? `<div class="mono">${snowTxt}</div>` : ''}`;
       }
 
       function sportColor(sport) {
@@ -1020,6 +1271,7 @@
       const cardWrap = document.getElementById('day-cards');
       (plan.days || []).forEach(d => {
         const sessions = (d.sessions || []);
+        const weatherHtml = fmtWeather(d.date || '');
 
         // Table rows
         if (sessions.length === 0) {
@@ -1028,6 +1280,7 @@
             <td class="mono">${d.date || ''}</td>
             <td><div>${d.day_name || ''}</div><div class="mono">${d.day_short || ''}</div></td>
             <td class="muted" colspan="9">—</td>
+            <td class="weatherCell">${weatherHtml}</td>
             <td class="muted">—</td>
           `;
           tbody.appendChild(tr);
@@ -1051,6 +1304,7 @@
               <td class="muted">${fmtSpeed(s.duration_min, s.distance_km)}</td>
               <td class="muted">${fmt.m(s.elevation_gain_m)}</td>
               <td class="muted">${(s.rpe === null || s.rpe === undefined || s.rpe === '') ? '—' : `${s.rpe}/10`}</td>
+              <td class="weatherCell">${showDay ? weatherHtml : ''}</td>
               <td class="notes">${s.notes || ''}</td>
             `;
             tbody.appendChild(tr);
@@ -1067,6 +1321,7 @@
               <div class="w">${d.date || ''} • ${d.day_short || ''}</div>
             </div>
           </div>
+          <div class="notes" style="margin-top:8px;">Pogoda: ${weatherHtml}</div>
         `;
         if (sessions.length === 0) {
           const empty = document.createElement('div');

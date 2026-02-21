@@ -1,0 +1,18 @@
+---
+description: Use weather forecast in plan generation and UI
+alwaysApply: true
+---
+
+# Pogoda w planie (Kraków) — zasady
+
+## Przed generowaniem / aktualizacją planu
+- Uruchom `node scripts/fetch_weather.js` (best‑effort). Jeśli się nie uda, planuj jak dotąd (trail_or_treadmill) i zaznacz brak danych.
+- Traktuj `data/weather_forecast.json` jako źródło prognozy dla okna planu (dzisiaj + 6 dni).
+
+## Jak uwzględniać prognozę
+- Preferuj outdoor (trail/park) w dni z **niską szansą i sumą opadu**; deszcz/śnieg/oblodzenie → bieżnia/basen/siła.
+- Zimą bierz pod uwagę **wiatr** i **temperaturę** (przy dyskomforcie/śliskości → indoor).
+- Jeśli są dni z wyraźnie lepszą pogodą, **przesuwaj dłuższy bieg** na „lepsze okno”, o ile nie łamie to twardych ograniczeń z `data/planned_sessions.csv`.
+
+## UI / render
+- `index.html` ma pokazywać w tabeli planu kolumnę **Pogoda** (dla każdego dnia, z `weather_forecast`).

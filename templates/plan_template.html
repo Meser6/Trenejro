@@ -189,6 +189,8 @@
       .titleCell { font-weight: 900; }
       .notes { color: var(--muted); font-size: 12px; line-height: 1.45; }
       .mono { font-family: var(--mono); font-size: 12px; color: var(--muted2); white-space: nowrap; }
+      .weatherCell { font-size: 12px; color: var(--muted); line-height: 1.35; }
+      .weatherCell b { color: var(--text); font-weight: 900; }
 
       /* Sport marker (Plan + Today) */
       .sportMark {
@@ -389,6 +391,7 @@
                     <th style="width: 80px">km/h</th>
                     <th style="width: 70px">+m</th>
                     <th style="width: 80px">RPE</th>
+                    <th style="min-width: 190px">Pogoda</th>
                     <th style="min-width: 320px">Notatki</th>
                   </tr>
                 </thead>
@@ -490,6 +493,66 @@
         const kmh = dist / (dur / 60);
         if (!Number.isFinite(kmh) || kmh <= 0) return '—';
         return `${kmh.toFixed(1)} km/h`;
+      }
+
+      function wmoLabel(code) {
+        const c = Number(code);
+        if (!Number.isFinite(c)) return '';
+        // WMO weather codes (Open-Meteo)
+        if (c === 0) return 'Bezchmurnie';
+        if (c === 1) return 'Pogodnie';
+        if (c === 2) return 'Częściowe zachmurzenie';
+        if (c === 3) return 'Pochmurno';
+        if (c === 45 || c === 48) return 'Mgła';
+        if (c === 51 || c === 53 || c === 55) return 'Mżawka';
+        if (c === 56 || c === 57) return 'Marznąca mżawka';
+        if (c === 61 || c === 63 || c === 65) return 'Deszcz';
+        if (c === 66 || c === 67) return 'Marznący deszcz';
+        if (c === 71 || c === 73 || c === 75) return 'Śnieg';
+        if (c === 77) return 'Ziarnisty śnieg';
+        if (c === 80 || c === 81 || c === 82) return 'Przelotne opady';
+        if (c === 85 || c === 86) return 'Przelotny śnieg';
+        if (c === 95) return 'Burza';
+        if (c === 96 || c === 99) return 'Burza z gradem';
+        return `Kod ${c}`;
+      }
+
+      function weatherForDate(isoDate) {
+        const wf = plan.datasets?.weather_forecast;
+        const daily = wf?.daily;
+        if (!daily || !Array.isArray(daily.time)) return null;
+        const i = daily.time.indexOf(isoDate);
+        if (i < 0) return null;
+        const get = (k) => Array.isArray(daily[k]) ? daily[k][i] : null;
+        return {
+          date: isoDate,
+          code: get('weathercode'),
+          tMax: get('temperature_2m_max'),
+          tMin: get('temperature_2m_min'),
+          precipMm: get('precipitation_sum'),
+          precipProb: get('precipitation_probability_max'),
+          snowCm: get('snowfall_sum'),
+          windKmh: get('wind_speed_10m_max'),
+        };
+      }
+
+      function fmtWeather(isoDate) {
+        const w = weatherForDate(isoDate);
+        if (!w) return '—';
+        const tMin = (w.tMin === null || w.tMin === undefined || w.tMin === '') ? null : Number(w.tMin);
+        const tMax = (w.tMax === null || w.tMax === undefined || w.tMax === '') ? null : Number(w.tMax);
+        const tempTxt = (Number.isFinite(tMin) && Number.isFinite(tMax)) ? `${tMin.toFixed(0)}–${tMax.toFixed(0)}°C` : '—';
+        const pMm = (w.precipMm === null || w.precipMm === undefined || w.precipMm === '') ? null : Number(w.precipMm);
+        const pProb = (w.precipProb === null || w.precipProb === undefined || w.precipProb === '') ? null : Number(w.precipProb);
+        const precipTxt = (Number.isFinite(pMm) || Number.isFinite(pProb))
+          ? `${Number.isFinite(pMm) ? `${pMm.toFixed(1)} mm` : '—'}${Number.isFinite(pProb) ? ` (${Math.round(pProb)}%)` : ''}`
+          : '—';
+        const snow = (w.snowCm === null || w.snowCm === undefined || w.snowCm === '') ? null : Number(w.snowCm);
+        const snowTxt = Number.isFinite(snow) && snow > 0 ? `${snow.toFixed(1)} cm śniegu` : '';
+        const wind = (w.windKmh === null || w.windKmh === undefined || w.windKmh === '') ? null : Number(w.windKmh);
+        const windTxt = Number.isFinite(wind) ? `${wind.toFixed(0)} km/h` : '—';
+        const label = wmoLabel(w.code);
+        return `<div><b>${label || '—'}</b></div><div class="mono">${tempTxt} • opad: ${precipTxt} • wiatr: ${windTxt}</div>${snowTxt ? `<div class="mono">${snowTxt}</div>` : ''}`;
       }
 
       function sportColor(sport) {
@@ -630,6 +693,7 @@
       const cardWrap = document.getElementById('day-cards');
       (plan.days || []).forEach(d => {
         const sessions = (d.sessions || []);
+        const weatherHtml = fmtWeather(d.date || '');
 
         // Table rows
         if (sessions.length === 0) {
@@ -638,6 +702,7 @@
             <td class="mono">${d.date || ''}</td>
             <td><div>${d.day_name || ''}</div><div class="mono">${d.day_short || ''}</div></td>
             <td class="muted" colspan="9">—</td>
+            <td class="weatherCell">${weatherHtml}</td>
             <td class="muted">—</td>
           `;
           tbody.appendChild(tr);
@@ -661,6 +726,7 @@
               <td class="muted">${fmtSpeed(s.duration_min, s.distance_km)}</td>
               <td class="muted">${fmt.m(s.elevation_gain_m)}</td>
               <td class="muted">${(s.rpe === null || s.rpe === undefined || s.rpe === '') ? '—' : `${s.rpe}/10`}</td>
+              <td class="weatherCell">${showDay ? weatherHtml : ''}</td>
               <td class="notes">${s.notes || ''}</td>
             `;
             tbody.appendChild(tr);
@@ -677,6 +743,7 @@
               <div class="w">${d.date || ''} • ${d.day_short || ''}</div>
             </div>
           </div>
+          <div class="notes" style="margin-top:8px;">Pogoda: ${weatherHtml}</div>
         `;
         if (sessions.length === 0) {
           const empty = document.createElement('div');

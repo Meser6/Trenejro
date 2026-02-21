@@ -118,6 +118,39 @@ if (dateInfo.seasonalActivities) {
 }
 console.log('');
 
+// Pogoda (best-effort): pobierz prognozę i pokaż skrót na 7 dni (dzisiaj + 6)
+try {
+    execSync('node scripts/fetch_weather.js', { stdio: 'pipe' });
+} catch (e) {
+    // best-effort: brak netu/limit/itp. — pomijamy
+}
+
+try {
+    const weatherPath = 'data/weather_forecast.json';
+    if (fs.existsSync(weatherPath)) {
+        const wf = JSON.parse(fs.readFileSync(weatherPath, 'utf-8'));
+        const daily = wf?.daily || wf?.raw?.daily;
+        if (daily && Array.isArray(daily.time)) {
+            console.log('=== POGODA (Kraków, 7 dni) ===');
+            daily.time.forEach((d, i) => {
+                const tMin = Array.isArray(daily.temperature_2m_min) ? daily.temperature_2m_min[i] : '';
+                const tMax = Array.isArray(daily.temperature_2m_max) ? daily.temperature_2m_max[i] : '';
+                const pMm = Array.isArray(daily.precipitation_sum) ? daily.precipitation_sum[i] : '';
+                const pProb = Array.isArray(daily.precipitation_probability_max) ? daily.precipitation_probability_max[i] : '';
+                const wind = Array.isArray(daily.wind_speed_10m_max) ? daily.wind_speed_10m_max[i] : '';
+                const code = Array.isArray(daily.weathercode) ? daily.weathercode[i] : '';
+                const tempTxt = (tMin !== '' && tMax !== '') ? `${tMin}…${tMax}°C` : '';
+                const precipTxt = (pMm !== '' || pProb !== '') ? `${pMm} mm (${pProb}%)` : '';
+                const windTxt = wind !== '' ? `${wind} km/h` : '';
+                console.log(`${d}: ${tempTxt}${precipTxt ? ` • opad ${precipTxt}` : ''}${windTxt ? ` • wiatr ${windTxt}` : ''}${code !== '' ? ` • kod ${code}` : ''}`);
+            });
+            console.log('');
+        }
+    }
+} catch (e) {
+    // best-effort
+}
+
 // Baseline (profil szczegółowy) - szybka informacja, że istnieje szerszy kontekst
 if (fs.existsSync('docs/ATHLETE_DETAILED_PROFILE.txt')) {
     console.log('=== BAZA KONTEKSTU (PROFIL SZCZEGÓŁOWY) ===');

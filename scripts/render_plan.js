@@ -95,7 +95,17 @@ function readCsvIfExists(filePath) {
   }
 }
 
-function normalizeDatasets({ plannedSessionsRows, trainingLogRows }) {
+function readJsonIfExists(filePath) {
+  try {
+    if (!fs.existsSync(filePath)) return null;
+    const text = fs.readFileSync(filePath, "utf8");
+    return JSON.parse(text);
+  } catch (e) {
+    return null;
+  }
+}
+
+function normalizeDatasets({ plannedSessionsRows, trainingLogRows, weatherForecast }) {
   const planned_sessions = (plannedSessionsRows || []).map((r) => ({
     date: r.date || "",
     sport: r.sport || "",
@@ -125,7 +135,9 @@ function normalizeDatasets({ plannedSessionsRows, trainingLogRows }) {
     notes: r.notes || "",
   }));
 
-  return { planned_sessions, training_log };
+  const weather_forecast = weatherForecast || null;
+
+  return { planned_sessions, training_log, weather_forecast };
 }
 
 function main() {
@@ -144,9 +156,11 @@ function main() {
   const generatedAt = isoNow();
   const plannedSessionsPath = path.join("data", "planned_sessions.csv");
   const trainingLogPath = path.join("data", "training_log.csv");
+  const weatherPath = path.join("data", "weather_forecast.json");
   const datasets = normalizeDatasets({
     plannedSessionsRows: readCsvIfExists(plannedSessionsPath),
     trainingLogRows: readCsvIfExists(trainingLogPath),
+    weatherForecast: readJsonIfExists(weatherPath),
   });
 
   const planWithHints = {
