@@ -354,7 +354,7 @@
         </div>
         <div class="meta">
           <div id="plan-meta"></div>
-          <div>Generated: <span id="generated-at">2026-02-21 15:11:45Z</span></div>
+          <div>Generated: <span id="generated-at">2026-02-21 18:11:00Z</span></div>
         </div>
       </div>
 
@@ -470,19 +470,20 @@
   "goals": [
     "Plan kroczący 7 dni (dzisiaj + 6): 2026-02-21 → 2026-02-27.",
     "Priorytet: kolana (bocznie / ITB‑podobne) → teren/bieżnia > asfalt; zero agresywnych zbiegów w zmęczeniu.",
-    "Budujemy regularność bez skoków: 3 spokojne biegi + basen (luźno) + siła/stabilizacja + 1 dzień pełnego odpoczynku (opcjonalnie spacer/sauna).",
+    "Budujemy regularność bez skoków i adaptację do nowych butów: 2–3 spokojne biegi (jeden trochę dłuższy) + basen (luźno) + siła/stabilizacja + 1 dzień pełnego odpoczynku (opcjonalnie spacer/sauna).",
     "Stałe ograniczenie w tym oknie: 2026-02-25 rower ~70 km (tlen/Z2) z `data/planned_sessions.csv` (jeśli pogoda niebezpieczna → zamiana na indoor)."
   ],
   "summary": {
     "runs": 3,
-    "total_distance_km": 26,
-    "total_elevation_gain_m": 200,
-    "cross_training": "rower (zaplanowany) + basen (luźno) + siła/stabilizacja + opcjonalny spacer/sauna",
+    "total_distance_km": 23.5,
+    "total_elevation_gain_m": 150,
+    "cross_training": "rower (zaplanowany; warunkowo szosa) + basen (luźno) + siła/stabilizacja + opcjonalny spacer/sauna",
     "rest_days": 1
   },
   "monitoring": [
     "Kolana: 0–2/10 i nie narasta → OK; 3/10 lub narasta → skróć/marsz; >3/10 lub gorszy poranek → bez biegania, nisko‑udarowo",
     "Achilles: jeśli poranek >2/10 albo sztywność wyraźnie rośnie → bez akcentów, skróć bieg i zrób łydki izometrycznie",
+    "Nowe buty: obserwuj łydki/ścięgna i ewentualne otarcia; w razie sygnałów skróć bieg i trzymaj płasko/luźno",
     "Red flags: blokowanie/zakleszczanie, wysięk, uciekanie → przerywamy i diagnozujemy",
     "Po każdym biegu: ból kolan (w trakcie + następnego ranka, L/P) + ból Achillesa (następnego ranka) + RPE + nawierzchnia"
   ],
@@ -493,16 +494,25 @@
       "day_short": "sob",
       "sessions": [
         {
-          "title": "Bieg EASY (krótko, bez szarpania)",
+          "title": "Bieg EASY (WYKONANE) — bieżnia",
           "sport": "run",
           "session_type": "easy",
-          "surface": "trail_or_treadmill",
+          "surface": "treadmill",
           "duration_min": 35,
           "distance_km": 6,
           "elevation_gain_m": 0,
           "intensity": "Luźno (tlen)",
-          "rpe": 3,
-          "notes": "Wybierz trail/park lub bieżnię; unikaj asfaltu. Rozgrzewka 8–10' (marsz→trucht) + 2–3×20\" luźniej. Bieg 25–35' RPE 3–4. Opcja bezpieczniejsza: 5×(4' bieg + 1' marsz). Zasada bólu: 0–2/10 OK; 3/10 lub narasta → marsz i koniec; jakiekolwiek blokowanie/uciekanie → stop."
+          "rpe": 4,
+          "notes": "Z logu: 6 km / 35 min na bieżni, zmęczenie 4/10, ból kolan 1/10 (nowe buty). Uzupełnij jutro rano: kolana L/P (0–10) + Achilles (0–10)."
+        },
+        {
+          "title": "Mobilność + biodro/pośladek/łydka (krótko)",
+          "sport": "strength",
+          "session_type": "mobility",
+          "duration_min": 15,
+          "intensity": "Lekko",
+          "rpe": 2,
+          "notes": "15–20': pośladek (clams/side steps), rozluźnienie TFL/pośladek, łydki izo 2×45–60\" (proste+ugięte). Bez bólu."
         }
       ]
     },
@@ -512,16 +522,16 @@
       "day_short": "ndz",
       "sessions": [
         {
-          "title": "Długi bieg EASY (trail)",
+          "title": "Bieg EASY (średnio-długi, trail)",
           "sport": "run",
           "session_type": "easy",
           "surface": "trail",
-          "duration_min": 70,
-          "distance_km": 11,
-          "elevation_gain_m": 200,
+          "duration_min": 60,
+          "distance_km": 10,
+          "elevation_gain_m": 150,
           "intensity": "Luźno (tlen)",
-          "rpe": 4,
-          "notes": "65–75' w spokojnym tlenie. Na zbiegach krótszy krok, miękko, bez agresji. Jeśli po sobocie czujesz kolana lub warunki śliskie → bieżnia 60–70' luźno (opcjonalnie 1–2% nachylenia)."
+          "rpe": 3,
+          "notes": "50–65' w spokojnym tlenie. Na zbiegach krótki krok, miękko, bez agresji (ITB). Jeśli jutro rano kolana >2/10 albo czujesz narastanie bólu → zamiast biegu zrób basen 40–50' luźno + mobilność."
         }
       ]
     },
@@ -547,16 +557,15 @@
       "day_short": "wt",
       "sessions": [
         {
-          "title": "Bieg EASY + opcjonalnie przebieżki",
-          "sport": "run",
+          "title": "Basen luźno (nisko‑udarowo) + mobilność",
+          "sport": "swim",
           "session_type": "easy",
-          "surface": "trail_or_treadmill",
-          "duration_min": 50,
-          "distance_km": 9,
-          "elevation_gain_m": 0,
-          "intensity": "Luźno",
-          "rpe": 4,
-          "notes": "45–55' luźno. Jeśli warunki śliskie → bieżnia. Jeśli kolana/Achilles 0–1/10 i czujesz luz → na końcu 4×20\" luźne przebieżki (pełny luz, nie sprint). Jeśli jakikolwiek sygnał z kolan → bez przebieżek."
+          "surface": "pool_indoor",
+          "duration_min": 40,
+          "distance_km": 1.2,
+          "intensity": "Lekko (tlen)",
+          "rpe": 2,
+          "notes": "30–45' luźno + technika. Po: 10–15' mobilność biodro/łydka/stopa + 2×45–60\" izo łydki (proste + ugięte)."
         }
       ]
     },
@@ -584,15 +593,16 @@
       "day_short": "czw",
       "sessions": [
         {
-          "title": "Basen luźno (nisko‑udarowo) + mobilność",
-          "sport": "swim",
+          "title": "Bieg EASY (treadmill/trail) + opcjonalnie przebieżki",
+          "sport": "run",
           "session_type": "easy",
-          "surface": "pool_indoor",
-          "duration_min": 40,
-          "distance_km": 1.2,
-          "intensity": "Lekko (tlen)",
-          "rpe": 2,
-          "notes": "30–45' luźno + technika. Po: 10–15' mobilność biodro/łydka/stopa + 2×45–60\" izo łydki (proste + ugięte)."
+          "surface": "trail_or_treadmill",
+          "duration_min": 45,
+          "distance_km": 7.5,
+          "elevation_gain_m": 0,
+          "intensity": "Luźno",
+          "rpe": 4,
+          "notes": "40–50' luźno. Preferuj bieżnię lub miękki teren (unikaj asfaltu). Jeśli kolana i Achilles rano 0–1/10 → na końcu 4×20\" luźne przebieżki (pełen luz, nie sprint). Jeśli jakikolwiek sygnał z kolan/Achillesa → bez przebieżek."
         }
       ]
     },
@@ -806,6 +816,23 @@
         "knee_right_pain_next_morning": "0",
         "achilles_pain": "0",
         "notes": "Squash: 1h, intensywność 6/10. Ból kolan 0/10."
+      },
+      {
+        "date": "2026-02-21",
+        "sport": "run",
+        "session_type": "easy",
+        "surface": "treadmill",
+        "duration_min": "35",
+        "distance_km": "6.0",
+        "elevation_gain_m": "0",
+        "avg_pace": "05:50",
+        "rpe": "4",
+        "knee_left_pain_during": "1",
+        "knee_left_pain_next_morning": "",
+        "knee_right_pain_during": "1",
+        "knee_right_pain_next_morning": "",
+        "achilles_pain": "",
+        "notes": "Bieżnia: 6 km / 35 min. Zmęczenie 4/10. Nowe buty. Ból kolan 1/10 podczas biegu (strona nieokreślona; wpisane na oba). Kolana/Achilles następnego ranka: do uzupełnienia."
       }
     ]
   },
