@@ -12,3 +12,6 @@ date,sport,session_type,surface,duration_min,distance_km,elevation_gain_m,avg_pa
 2026-02-21,run,easy,treadmill,35,6.0,0,05:50,4,1,,1,,,"Bieżnia: 6 km / 35 min. Zmęczenie 4/10. Nowe buty. Ból kolan 1/10 podczas biegu (strona nieokreślona; wpisane na oba). Kolana/Achilles następnego ranka: do uzupełnienia."
 2026-02-22,run,easy,treadmill,60,10.0,0,06:00,3,3,,3,,0,"Bieżnia: 10 km / 60 min, nachylenie 1%."
 2026-02-23,rest,rest,,25,,,,1,0,0,0,0,0,"Odpoczynek w saunie (ubiegły poniedziałek)."
+2026-02-25,run,easy,treadmill,16,3.0,0,05:20,1,0,,0,,,"Bieżnia: 3 km / 16 min. Przerwany: prawa noga cała zdretwiała, zszedł z bieżni. Podejrzenie: za mocno zawiązane buty. Ból 0, RPE 1."
+2026-02-27,squash,moderate,indoor,40,,,,6,0,0,0,0,0,"Squash 40 min, RPE 6. Ból 0/10."
+2026-02-28,run,easy,trail,55,8.0,250,06:52,5,0,,6,,,"Trail 8 km, +250 m, 55 min. Koniec z powodu bólu kolana P (przeciążeniowy)."
